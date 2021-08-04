@@ -7,8 +7,11 @@
       fixed
       app
     >
-      <div style="height: 64px; background-color: red">icon</div>
-      <v-list>
+      <!-- <v-img style="height: 64px" src="@/assets/img/logo/playland.png"></v-img> -->
+      <div class="d-flex justify-center">
+        <img width="120" height="64" src="@/assets/img/logo/playland.png" />
+      </div>
+      <v-list class="py-0">
         <v-list-item
           v-for="(item, i) in items"
           :key="i"
@@ -60,9 +63,9 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-footer :absolute="!fixed" app>
+    <!-- <v-footer :absolute="!fixed" app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
+    </v-footer> -->
   </v-app>
 </template>
 

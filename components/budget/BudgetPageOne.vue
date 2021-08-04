@@ -61,17 +61,13 @@
         <label class="field field_v3">
           <textarea class="field__input" />
           <span class="field__label-wrap">
-            <span class="field__label"
-              >ขอเสนอราคาสำหรับเบิกจ่ายงบประมาณเพื่อใช้สำหรับ</span
-            >
+            <span class="field__label">เนื่องจากความจำเป็น</span>
           </span>
         </label>
         <label class="field field_v3">
           <textarea class="field__input" />
           <span class="field__label-wrap">
-            <span class="field__label"
-              >ขอเสนอราคาสำหรับเบิกจ่ายงบประมาณเพื่อใช้สำหรับ</span
-            >
+            <span class="field__label">ดำเนินการด้วยวิธี</span>
           </span>
         </label>
         <!--  -->
@@ -82,20 +78,20 @@
             justify-content: end;
           "
         >
-          <p>มีระยะเวลาตั้งแต่</p>
           <label class="field field_v2">
             <input type="date" class="field__input" />
-            <!-- <span class="field__label-wrap">
-              <span class="field__label">เริ่ม</span>
-            </span> -->
+            <span class="field__label-wrap">
+              <span class="field__label">วันแรกเริ่ม</span>
+            </span>
           </label>
           <label class="field field_v2">
             <input type="date" class="field__input" />
-            <!-- <span class="field__label-wrap">
-              <span class="field__label">สิ้นสุด </span>
-            </span> -->
+            <span class="field__label-wrap">
+              <span class="field__label">วันสิ้นสุด</span>
+            </span>
           </label>
         </div>
+        <!--  -->
         <!-- <label class="field field_v3">
           <textarea
             class="field__input"
