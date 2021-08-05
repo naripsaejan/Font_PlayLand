@@ -1,18 +1,7 @@
 <template>
   <div>
-    <form>
+    <!-- <form>
       <p class="d-flex justify-center">แบบนำเสนอราคาสำหรับเบิกจ่ายงบประมาณ</p>
-      <!-- 
-      <div class="flex justify-end">
-        <label for="html">เลขที่เอกสาร</label><input type="text" />
-      </div>
-      <div class="flex justify-end">
-        <label for="html">วันที่</label><input type="text" />
-      </div>
-      <div class="flex justify-end">
-        <label for="html">ผู้เสนอ</label><input type="text" />
-        <label for="html">สังกัด</label><input type="text" />
-      </div> -->
       <div class="page">
         <div
           style="
@@ -34,7 +23,6 @@
             </span>
           </label>
         </div>
-        <!--  -->
         <div style="display: flex; align-content: space-around">
           <label class="field field_v1">
             <input class="field__input" />
@@ -49,7 +37,7 @@
             </span>
           </label>
         </div>
-        <!--  -->
+
         <label class="field field_v3">
           <textarea class="field__input" />
           <span class="field__label-wrap">
@@ -70,7 +58,6 @@
             <span class="field__label">ดำเนินการด้วยวิธี</span>
           </span>
         </label>
-        <!--  -->
         <div
           style="
             display: flex;
@@ -91,242 +78,386 @@
             </span>
           </label>
         </div>
-        <!--  -->
-        <!-- <label class="field field_v3">
-          <textarea
-            class="field__input"
-            style="heitgh: 40 px"
-            placeholder="e.g. melnik909@ya.ru"
-          />
-          <span class="field__label-wrap">
-            <span class="field__label">E-mail</span>
-          </span>
-        </label> -->
       </div>
-    </form>
+    </form> -->
+    <v-form v-model="valid">
+      <v-row class="mt-3">
+        <div class="d-grid justify-end">
+          <v-text-field
+            v-model="firstname"
+            :rules="nameRules"
+            :counter="10"
+            label="เลขที่เอกสาร"
+            required
+          ></v-text-field>
+          <v-dialog
+            ref="dialog"
+            v-model="modal"
+            :return-value.sync="date"
+            persistent
+            width="290px"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field
+                v-model="date"
+                label="Picker in dialog"
+                prepend-icon="mdi-calendar"
+                readonly
+                v-bind="attrs"
+                v-on="on"
+              ></v-text-field>
+            </template>
+            <v-date-picker v-model="date" scrollable>
+              <v-spacer></v-spacer>
+              <v-btn text color="primary" @click="modal = false">
+                Cancel
+              </v-btn>
+              <v-btn text color="primary" @click="$refs.dialog.save(date)">
+                OK
+              </v-btn>
+            </v-date-picker>
+          </v-dialog>
+        </div>
+        <div class="d-flex">
+          <v-text-field
+            v-model="firstname"
+            :rules="nameRules"
+            :counter="10"
+            label="เลขที่เอกสาร"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="firstname"
+            :rules="nameRules"
+            :counter="10"
+            label="เลขที่เอกสาร"
+            required
+          ></v-text-field>
+        </div>
+
+        <v-textarea
+          name="input-3-1"
+          label="Default style"
+          hint="Hint text"
+          rows="3"
+        ></v-textarea>
+        <v-textarea
+          name="input-3-1"
+          label="Default style"
+          hint="Hint text"
+          rows="3"
+        ></v-textarea>
+        <v-textarea
+          name="input-3-1"
+          label="Default style"
+          rows="3"
+          hint="Hint text"
+        ></v-textarea>
+
+        <div class="d-flex">
+          <v-dialog
+            ref="dialog_start"
+            v-model="modal_start"
+            :return-value.sync="date_start"
+            persistent
+            width="290px"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field
+                v-model="date_start"
+                label="Picker in dialog"
+                prepend-icon="mdi-calendar"
+                readonly
+                v-bind="attrs"
+                v-on="on"
+              ></v-text-field>
+            </template>
+            <v-date-picker v-model="date_start" scrollable>
+              <v-spacer></v-spacer>
+              <v-btn text color="primary" @click="modal_start = false">
+                Cancel
+              </v-btn>
+              <v-btn
+                text
+                color="primary"
+                @click="$refs.dialog_start.save(date_start)"
+              >
+                OK
+              </v-btn>
+            </v-date-picker>
+          </v-dialog>
+          <v-dialog
+            ref="dialog_end"
+            v-model="modal_end"
+            :return-value.sync="date"
+            persistent
+            width="290px"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field
+                v-model="date"
+                label="Picker in dialog"
+                prepend-icon="mdi-calendar"
+                readonly
+                v-bind="attrs"
+                v-on="on"
+              ></v-text-field>
+            </template>
+            <v-date-picker v-model="date" scrollable>
+              <v-spacer></v-spacer>
+              <v-btn text color="primary" @click="modal_end = false">
+                Cancel
+              </v-btn>
+              <v-btn text color="primary" @click="$refs.dialog_end.save(date)">
+                OK
+              </v-btn>
+            </v-date-picker>
+          </v-dialog>
+        </div>
+        <v-text-field
+          v-model="firstname"
+          :rules="nameRules"
+          :counter="10"
+          label="เลขที่เอกสาร"
+          required
+        ></v-text-field>
+        <v-col cols="6">
+          <v-subheader
+            >โดยมีรายละเอียดค่าใช้จ่ายตามเอกสารแนบท้าย
+            รวมเป็นเงินทั้งสิ้น</v-subheader
+          >
+        </v-col>
+        <v-col cols="6">
+          <v-text-field suffix="บาท"></v-text-field>
+        </v-col>
+        <v-col cols="6">
+          <v-subheader>ตัวอักษร</v-subheader>
+        </v-col>
+        <v-col cols="6">
+          <v-text-field prefix="(" suffix=")บาท"></v-text-field>
+        </v-col>
+        <v-col cols="6">
+          <v-subheader
+            >โดยมีรายละเอียดค่าใช้จ่ายตามเอกสารแนบท้าย
+            รวมเป็นเงินทั้งสิ้น</v-subheader
+          >
+        </v-col>
+
+        <v-col cols="3">
+          <v-dialog
+            ref="dialog_end"
+            v-model="modal_end"
+            :return-value.sync="date"
+            persistent
+            width="290px"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field
+                v-model="date"
+                prepend-icon="mdi-calendar"
+                readonly
+                v-bind="attrs"
+                v-on="on"
+              ></v-text-field>
+            </template>
+            <v-date-picker v-model="date" scrollable>
+              <v-spacer></v-spacer>
+              <v-btn text color="primary" @click="modal_end = false">
+                Cancel
+              </v-btn>
+              <v-btn text color="primary" @click="$refs.dialog_end.save(date)">
+                OK
+              </v-btn>
+            </v-date-picker>
+          </v-dialog>
+        </v-col>
+
+        <v-col cols="3">
+          <v-dialog
+            ref="dialog"
+            v-model="modal2"
+            :return-value.sync="time"
+            persistent
+            width="290px"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field
+                v-model="time"
+                label="Picker in dialog"
+                prepend-icon="mdi-clock-time-four-outline"
+                readonly
+                v-bind="attrs"
+                v-on="on"
+              ></v-text-field>
+            </template>
+            <v-time-picker
+              v-if="modal2"
+              v-model="time"
+              format="24hr"
+              full-width
+            >
+              <v-spacer></v-spacer>
+              <v-btn text color="primary" @click="modal2 = false">
+                Cancel
+              </v-btn>
+              <v-btn text color="primary" @click="$refs.dialog.save(time)">
+                OK
+              </v-btn>
+            </v-time-picker>
+          </v-dialog>
+        </v-col>
+
+        <div class="d-flex justify-center">
+          <v-col cols="auto" class="d-flex align-center">
+            <v-subheader>ลงชื่อ</v-subheader>
+          </v-col>
+          <v-col cols="4">
+            <v-text-field></v-text-field>
+          </v-col>
+          <v-col cols="auto" class="d-flex align-center">
+            <v-subheader>ผู้เสนอ</v-subheader>
+          </v-col>
+        </div>
+        <div class="d-flex justify-center">
+          <v-col cols="auto" class="d-flex align-center">
+            <v-subheader>(</v-subheader>
+          </v-col>
+          <v-col cols="4">
+            <v-text-field></v-text-field>
+          </v-col>
+          <v-col cols="auto" class="d-flex align-center">
+            <v-subheader>)</v-subheader>
+          </v-col>
+        </div>
+        <div class="d-flex justify-center">
+          <v-col cols="5">
+            <v-dialog
+              ref="dialog_end"
+              v-model="modal_end"
+              :return-value.sync="date"
+              persistent
+              width="290px"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="date"
+                  prepend-icon="mdi-calendar"
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker v-model="date" scrollable>
+                <v-spacer></v-spacer>
+                <v-btn text color="primary" @click="modal_end = false">
+                  Cancel
+                </v-btn>
+                <v-btn
+                  text
+                  color="primary"
+                  @click="$refs.dialog_end.save(date)"
+                >
+                  OK
+                </v-btn>
+              </v-date-picker>
+            </v-dialog>
+          </v-col>
+        </div>
+
+        <div class="d-flex justify-center">
+          <v-col cols="auto" class="d-flex align-center">
+            <v-subheader>ลงชื่อ</v-subheader>
+          </v-col>
+          <v-col cols="4">
+            <v-text-field></v-text-field>
+          </v-col>
+          <v-col cols="auto" class="d-flex align-center">
+            <v-subheader>หัวหน้าสังกัด</v-subheader>
+          </v-col>
+        </div>
+        <div class="d-flex justify-center">
+          <v-col cols="auto" class="d-flex align-center">
+            <v-subheader>(</v-subheader>
+          </v-col>
+          <v-col cols="4">
+            <v-text-field></v-text-field>
+          </v-col>
+          <v-col cols="auto" class="d-flex align-center">
+            <v-subheader>)</v-subheader>
+          </v-col>
+        </div>
+        <div class="d-flex justify-center">
+          <v-col cols="5">
+            <v-dialog
+              ref="dialog_end"
+              v-model="modal_end"
+              :return-value.sync="date"
+              persistent
+              width="290px"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field
+                  v-model="date"
+                  prepend-icon="mdi-calendar"
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker v-model="date" scrollable>
+                <v-spacer></v-spacer>
+                <v-btn text color="primary" @click="modal_end = false">
+                  Cancel
+                </v-btn>
+                <v-btn
+                  text
+                  color="primary"
+                  @click="$refs.dialog_end.save(date)"
+                >
+                  OK
+                </v-btn>
+              </v-date-picker>
+            </v-dialog>
+          </v-col>
+        </div>
+      </v-row>
+    </v-form>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  data: () => ({
+    valid: false,
+    firstname: '',
+    lastname: '',
+    nameRules: [
+      (v) => !!v || 'Name is required',
+      (v) => v.length <= 10 || 'Name must be less than 10 characters',
+    ],
+    email: '',
+    emailRules: [
+      (v) => !!v || 'E-mail is required',
+      (v) => /.+@.+/.test(v) || 'E-mail must be valid',
+    ],
+    date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+      .toISOString()
+      .substr(0, 10),
+    date_start: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+      .toISOString()
+      .substr(0, 10),
+    date_end: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+      .toISOString()
+      .substr(0, 10),
+    modal: false,
+    modal_start: false,
+    modal_end: false,
+    time: null,
+    menu2: false,
+    modal2: false,
+  }),
+}
 </script>
 <style lang="scss" scoped>
 @import 'assets/budget.scss';
-
-/*
-=====
-RESET STYLES
-=====
-*/
-
-.field__input {
-  --uiFieldPlaceholderColor: var(--fieldPlaceholderColor, #767676);
-
-  background-color: transparent;
-  border-radius: 0;
-  border: none;
-
-  -webkit-appearance: none;
-  -moz-appearance: none;
-
-  font-family: inherit;
-  font-size: inherit;
-}
-
-.field__input:focus::-webkit-input-placeholder {
-  color: var(--uiFieldPlaceholderColor);
-}
-
-.field__input:focus::-moz-placeholder {
-  color: var(--uiFieldPlaceholderColor);
-}
-
-/*
-=====
-CORE STYLES
-=====
-*/
-
-.field {
-  --uiFieldBorderWidth: var(--fieldBorderWidth, 2px);
-  --uiFieldPaddingRight: var(--fieldPaddingRight, 1rem);
-  --uiFieldPaddingLeft: var(--fieldPaddingLeft, 1rem);
-  --uiFieldBorderColorActive: var(
-    --fieldBorderColorActive,
-    rgba(22, 22, 22, 1)
-  );
-
-  display: var(--fieldDisplay, inline-flex);
-  position: relative;
-  font-size: var(--fieldFontSize, 1rem);
-}
-
-.field__input {
-  box-sizing: border-box;
-  width: var(--fieldWidth, 100%);
-  height: var(--fieldHeight, 3rem);
-  padding: var(--fieldPaddingTop, 1.25rem) var(--uiFieldPaddingRight)
-    var(--fieldPaddingBottom, 0.5rem) var(--uiFieldPaddingLeft);
-  border-bottom: var(--uiFieldBorderWidth) solid
-    var(--fieldBorderColor, rgba(0, 0, 0, 0.25));
-}
-
-.field__input:focus {
-  outline: none;
-}
-
-.field__input::-webkit-input-placeholder {
-  opacity: 0;
-  transition: opacity 0.2s ease-out;
-}
-
-.field__input::-moz-placeholder {
-  opacity: 0;
-  transition: opacity 0.2s ease-out;
-}
-
-.field__input:focus::-webkit-input-placeholder {
-  opacity: 1;
-  transition-delay: 0.2s;
-}
-
-.field__input:focus::-moz-placeholder {
-  opacity: 1;
-  transition-delay: 0.2s;
-}
-
-.field__label-wrap {
-  box-sizing: border-box;
-  pointer-events: none;
-  cursor: text;
-
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-
-.field__label-wrap::after {
-  content: '';
-  box-sizing: border-box;
-  width: 100%;
-  height: 0;
-  opacity: 0;
-
-  position: absolute;
-  bottom: 0;
-  left: 0;
-}
-
-.field__input:focus ~ .field__label-wrap::after {
-  opacity: 1;
-}
-
-.field__label {
-  position: absolute;
-  left: var(--uiFieldPaddingLeft);
-  top: calc(50% - 0.5em);
-
-  line-height: 1;
-  font-size: var(--fieldHintFontSize, inherit);
-
-  transition: top 0.2s cubic-bezier(0.9, -0.15, 0.1, 1.15),
-    opacity 0.2s ease-out, font-size 0.2s ease-out;
-  will-change: bottom, opacity, font-size;
-}
-
-.field__input:focus ~ .field__label-wrap .field__label,
-.field__input:not(:placeholder-shown) ~ .field__label-wrap .field__label {
-  --fieldHintFontSize: var(--fieldHintFontSizeFocused, 0.75rem);
-
-  top: var(--fieldHintTopHover, 0.25rem);
-}
-
-/*
-effect 1
-*/
-
-.field_v1 .field__label-wrap::after {
-  border-bottom: var(--uiFieldBorderWidth) solid var(--uiFieldBorderColorActive);
-  transition: opacity 0.2s ease-out;
-  will-change: opacity;
-}
-
-/*
-effect 2
-*/
-
-.field_v2 .field__label-wrap {
-  overflow: hidden;
-}
-
-.field_v2 .field__label-wrap::after {
-  border-bottom: var(--uiFieldBorderWidth) solid var(--uiFieldBorderColorActive);
-  transform: translate3d(-105%, 0, 0);
-  will-change: transform, opacity;
-  transition: transform 0.285s ease-out 0.2s, opacity 0.2s ease-out 0.2s;
-}
-
-.field_v2 .field__input:focus ~ .field__label-wrap::after {
-  transform: translate3d(0, 0, 0);
-  transition-delay: 0;
-}
-
-/*
-effect 3
-*/
-
-.field_v3 .field__label-wrap::after {
-  border: var(--uiFieldBorderWidth) solid var(--uiFieldBorderColorActive);
-  will-change: opacity, height;
-  transition: height 0.2s ease-out, opacity 0.2s ease-out;
-}
-
-.field_v3 .field__input:focus ~ .field__label-wrap::after {
-  height: 100%;
-}
-
-/*
-=====
-LEVEL 4. SETTINGS
-=====
-*/
-
-.field {
-  --fieldBorderColor: #d1c4e9;
-  --fieldBorderColorActive: #673ab7;
-}
-
-/*
-=====
-DEMO
-=====
-*/
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Open Sans,
-    Ubuntu, Fira Sans, Helvetica Neue, sans-serif;
-  margin: 0;
-
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.page {
-  box-sizing: border-box;
-  width: 100%;
-  // max-width: 480px;
-  margin: auto;
-  padding: 1rem;
-
-  display: grid;
-  grid-gap: 30px;
-}
-/*
-======
-custom width height
-======
-*/
 </style>
