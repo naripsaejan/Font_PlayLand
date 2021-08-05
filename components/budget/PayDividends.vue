@@ -1,87 +1,8 @@
 <template>
   <div>
-    <!-- <form>
-      <p class="d-flex justify-center">แบบนำเสนอราคาสำหรับเบิกจ่ายงบประมาณ</p>
-      <div class="page">
-        <div
-          style="
-            display: grid;
-            align-content: space-around;
-            justify-content: end;
-          "
-        >
-          <label class="field field_v1">
-            <input class="field__input" />
-            <span class="field__label-wrap">
-              <span class="field__label">เลขที่เอกสาร</span>
-            </span>
-          </label>
-          <label class="field field_v2">
-            <input type="date" class="field__input" />
-            <span class="field__label-wrap">
-              <span class="field__label">วันที่</span>
-            </span>
-          </label>
-        </div>
-        <div style="display: flex; align-content: space-around">
-          <label class="field field_v1">
-            <input class="field__input" />
-            <span class="field__label-wrap">
-              <span class="field__label">ผู้เสนอ</span>
-            </span>
-          </label>
-          <label class="field field_v2">
-            <input class="field__input" />
-            <span class="field__label-wrap">
-              <span class="field__label">สังกัด</span>
-            </span>
-          </label>
-        </div>
-
-        <label class="field field_v3">
-          <textarea class="field__input" />
-          <span class="field__label-wrap">
-            <span class="field__label"
-              >ขอเสนอราคาสำหรับเบิกจ่ายงบประมาณเพื่อใช้สำหรับ</span
-            >
-          </span>
-        </label>
-        <label class="field field_v3">
-          <textarea class="field__input" />
-          <span class="field__label-wrap">
-            <span class="field__label">เนื่องจากความจำเป็น</span>
-          </span>
-        </label>
-        <label class="field field_v3">
-          <textarea class="field__input" />
-          <span class="field__label-wrap">
-            <span class="field__label">ดำเนินการด้วยวิธี</span>
-          </span>
-        </label>
-        <div
-          style="
-            display: flex;
-            align-content: space-around;
-            justify-content: end;
-          "
-        >
-          <label class="field field_v2">
-            <input type="date" class="field__input" />
-            <span class="field__label-wrap">
-              <span class="field__label">วันแรกเริ่ม</span>
-            </span>
-          </label>
-          <label class="field field_v2">
-            <input type="date" class="field__input" />
-            <span class="field__label-wrap">
-              <span class="field__label">วันสิ้นสุด</span>
-            </span>
-          </label>
-        </div>
-      </div>
-    </form> -->
     <v-form v-model="valid">
       <v-row class="mt-3">
+        <p class="d-flex justify-center mt-2">รายละเอียดค่าใช้จ่าย</p>
         <div class="d-grid justify-end">
           <v-text-field
             v-model="firstname"
@@ -123,14 +44,14 @@
             v-model="firstname"
             :rules="nameRules"
             :counter="10"
-            label="เลขที่เอกสาร"
+            label="ผู้เสนอ"
             required
           ></v-text-field>
           <v-text-field
             v-model="firstname"
             :rules="nameRules"
             :counter="10"
-            label="เลขที่เอกสาร"
+            label="สังกัด"
             required
           ></v-text-field>
         </div>
@@ -369,55 +290,21 @@
             <v-subheader>ลงชื่อ</v-subheader>
           </v-col>
           <v-col cols="4">
-            <v-text-field></v-text-field>
+            <v-text-field label="ลงชื่อผู้เสนอ"></v-text-field>
           </v-col>
           <v-col cols="auto" class="d-flex align-center">
             <v-subheader>หัวหน้าสังกัด</v-subheader>
           </v-col>
         </div>
         <div class="d-flex justify-center">
-          <v-col cols="auto" class="d-flex align-center">
-            <v-subheader>(</v-subheader>
+          <v-col cols="auto" class="d-flex align-center pr-0">
+            <v-subheader class="pr-0">(</v-subheader>
           </v-col>
-          <v-col cols="4">
+          <v-col cols="4" class="px-0">
             <v-text-field></v-text-field>
           </v-col>
-          <v-col cols="auto" class="d-flex align-center">
-            <v-subheader>)</v-subheader>
-          </v-col>
-        </div>
-        <div class="d-flex justify-center">
-          <v-col cols="5">
-            <v-dialog
-              ref="dialog_end"
-              v-model="modal_end"
-              :return-value.sync="date"
-              persistent
-              width="290px"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
-                  v-model="date"
-                  prepend-icon="mdi-calendar"
-                  readonly
-                  v-bind="attrs"
-                  v-on="on"
-                ></v-text-field>
-              </template>
-              <v-date-picker v-model="date" scrollable>
-                <v-spacer></v-spacer>
-                <v-btn text color="primary" @click="modal_end = false">
-                  Cancel
-                </v-btn>
-                <v-btn
-                  text
-                  color="primary"
-                  @click="$refs.dialog_end.save(date)"
-                >
-                  OK
-                </v-btn>
-              </v-date-picker>
-            </v-dialog>
+          <v-col cols="auto" class="d-flex align-center pl-0">
+            <v-subheader class="pl-0">)</v-subheader>
           </v-col>
         </div>
       </v-row>
