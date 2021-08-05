@@ -9,8 +9,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - nuxt_2',
-    title: 'nuxt_2',
+    titleTemplate: '%s',
+    title: 'PlayLand',
     htmlAttrs: {
       lang: 'en',
     },
@@ -21,7 +21,8 @@ export default {
       { name: 'format-detection', content: 'telephone=no' },
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', type: 'image/x-icon', href: '/playland.png' },
+      // { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         href: 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css',
         rel: 'stylesheet',

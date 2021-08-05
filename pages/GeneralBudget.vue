@@ -1,14 +1,14 @@
 <template>
   <div>
-    <Stppers />
+    <SteppersBudget />
   </div>
 </template>
 
 <script>
-import Stppers from '@/components/Steppers.vue'
+import SteppersBudget from '~/components/SteppersBudget.vue'
 export default {
   components: {
-    Stppers,
+    SteppersBudget,
   },
   data() {
     return {
