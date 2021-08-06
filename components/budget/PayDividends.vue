@@ -342,6 +342,7 @@ export default {
     time: null,
     menu2: false,
     modal2: false,
+    radio1: null,
   }),
 }
 </script>

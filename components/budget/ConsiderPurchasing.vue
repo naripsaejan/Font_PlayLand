@@ -3,7 +3,6 @@
     <v-form v-model="valid">
       <v-row class="mt-3">
         <p class="mt-2">ผลการพิจารณาฝ่ายจัดซื้อ</p>
-        <p class="mt-2">ผลการพิจารณาฝ่ายบริหาร</p>
         <div class="d-flex">
           <v-col cols="2">
             <v-radio-group v-model="radio1">
@@ -287,7 +286,7 @@
         <!--  -->
         <hr />
         <!--  -->
-        <p class="mt-2">ผลการพิจารณาฝ่ายบริหาร</p>
+        <p class="mt-2">การจ่ายเงินโดยฝ่ายบัญชี</p>
         <v-col cols="12" class="d-flex">
           <!-- <v-col cols="2"></v-col> -->
           <v-col cols="4">

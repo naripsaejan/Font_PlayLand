@@ -1,5 +1,12 @@
 <template>
-  <div>Hello PLAYLAND</div>
+  <div>
+    <div class="d-flex justify-center">
+      <img width="50%" height="50%" src="@/assets/img/logo/playland.png" />
+    </div>
+    <div class="d-flex justify-center">
+      <p class="text-left" style="font-size: 150px">Welcome</p>
+    </div>
+  </div>
 </template>
 
 <script>
