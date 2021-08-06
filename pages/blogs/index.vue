@@ -1,16 +1,12 @@
 <template>
-  <div>
-    <SteppersSpecific />
-  </div>
+  <div>Hello PLAYLAND</div>
 </template>
 
 <script>
-import SteppersSpecific from '~/components/SteppersSpecific.vue'
 export default {
   middleware: 'auth',
-  components: {
-    SteppersSpecific,
-  },
+
+  components: {},
   data() {
     return {
       e1: 1,
