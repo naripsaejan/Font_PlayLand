@@ -35,15 +35,16 @@
       </v-btn>
       <!-- <v-btn icon @click.stop="clipped = !clipped">
         <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="fixed = !fixed">
+      </v-btn> -->
+      <!-- <v-btn icon @click.stop="fixed = !fixed">
         <v-icon>mdi-minus</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title" />
+      </v-btn> -->
+      <!-- <v-toolbar-title v-text="title" /> -->
       <v-spacer />
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
+      <!-- <v-btn icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon>mdi-menu</v-icon>
       </v-btn> -->
+      <v-btn class="d-flex justify-end" @click="Logout">Logout </v-btn>
     </v-app-bar>
     <v-main>
       <!-- <v-container>
@@ -103,6 +104,17 @@ export default {
       rightDrawer: false,
       title: 'Vuetify.js',
     }
+  },
+  methods: {
+    async Logout() {
+      // await this.$auth.logout()
+      try {
+        await this.$auth.logout()
+        this.$router.replace({ name: 'login' })
+      } catch (err) {
+        console.log(err)
+      }
+    },
   },
 }
 </script>

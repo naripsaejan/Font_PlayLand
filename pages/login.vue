@@ -25,6 +25,9 @@ export default {
           data: { user: { email: this.email, password: this.password } },
         })
         console.log(response)
+        if (response.data.success) {
+          this.$router.replace({ name: 'blogs' })
+        }
       } catch (err) {
         console.log(err)
       }
