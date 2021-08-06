@@ -7,6 +7,7 @@
 <script>
 import SteppersSpecific from '~/components/SteppersSpecific.vue'
 export default {
+  middleware: 'auth',
   components: {
     SteppersSpecific,
   },

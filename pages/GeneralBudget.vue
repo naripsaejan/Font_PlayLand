@@ -7,6 +7,8 @@
 <script>
 import SteppersBudget from '~/components/SteppersBudget.vue'
 export default {
+  middleware: 'auth',
+
   components: {
     SteppersBudget,
   },
