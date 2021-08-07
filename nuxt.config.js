@@ -30,6 +30,10 @@ export default {
           'sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC',
         crossorigin: 'anonymous',
       },
+      // {
+      //   href: '/your-path-to-fontawesome/css/fontawesome.css',
+      //   rel: 'stylesheet',
+      // },
     ],
   },
 
@@ -46,6 +50,7 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    // '@nuxtjs/fontawesome',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules

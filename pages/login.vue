@@ -1,12 +1,22 @@
 <template>
-  <div id="app ">
-    <v-text-field v-model="email" label="Email"></v-text-field>
-    <v-text-field
-      v-model="password"
-      label="EmailPassword"
-      type="password"
-    ></v-text-field>
-    <v-btn @click="handleLoginClicked">Login</v-btn>
+  <div id="app">
+    <div class="d-flex justify-center">
+      <img width="50%" height="50%" src="@/assets/img/logo/playland.png" />
+    </div>
+    <div class="d-grid justify-center">
+      <v-col style="width: 300px" class="px-0">
+        <v-text-field v-model="email" label="Email"></v-text-field>
+      </v-col>
+
+      <v-col style="width: 300px" class="px-0">
+        <v-text-field
+          v-model="password"
+          label="EmailPassword"
+          type="password"
+        ></v-text-field>
+      </v-col>
+      <v-btn @click="handleLoginClicked">Login</v-btn>
+    </div>
   </div>
 </template>
 <script>
@@ -35,3 +45,4 @@ export default {
   },
 }
 </script>
+<style scoped></style>

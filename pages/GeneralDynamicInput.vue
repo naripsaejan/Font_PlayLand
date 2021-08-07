@@ -1,10 +1,19 @@
 <template>
-  <div>
-    <div class="d-flex justify-center">
-      <img width="50%" height="50%" src="@/assets/img/logo/playland.png" />
-    </div>
-    <div class="d-flex justify-center">
-      <p class="text-left" style="font-size: 150px">Welcome</p>
+  <div id="app">
+    <div class="form-group" v-for="(input, k) in inputs" :key="k">
+      <input type="text" class="form-control" v-model="input.name" />
+      <span>
+        <i
+          class="fas fa-minus-circle"
+          @click="remove(k)"
+          v-show="k || (!k && inputs.length > 1)"
+        ></i>
+        <i
+          class="fas fa-plus-circle"
+          @click="add(k)"
+          v-show="k == inputs.length - 1"
+        ></i>
+      </span>
     </div>
   </div>
 </template>
@@ -12,12 +21,21 @@
 <script>
 export default {
   middleware: 'auth',
-
-  components: {},
-  data() {
-    return {
-      e1: 1,
-    }
+  el: '#app',
+  data: {
+    inputs: [
+      {
+        name: '',
+      },
+    ],
+  },
+  methods: {
+    add(index) {
+      this.inputs.push({ name: '' })
+    },
+    remove(index) {
+      this.inputs.splice(index, 1)
+    },
   },
 }
 </script>

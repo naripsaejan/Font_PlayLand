@@ -1,19 +1,16 @@
 <template>
   <div>
-    <div class="d-flex justify-center">
-      <img width="50%" height="50%" src="@/assets/img/logo/playland.png" />
-    </div>
-    <div class="d-flex justify-center">
-      <p class="text-left" style="font-size: 150px">Welcome</p>
-    </div>
+    <SteppersSupportBudget />
   </div>
 </template>
 
 <script>
+import SteppersSupportBudget from '~/components/SteppersSupportBudget.vue'
 export default {
   middleware: 'auth',
-
-  components: {},
+  components: {
+    SteppersSupportBudget,
+  },
   data() {
     return {
       e1: 1,

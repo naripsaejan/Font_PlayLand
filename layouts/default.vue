@@ -9,7 +9,7 @@
     >
       <!-- <v-img style="height: 64px" src="@/assets/img/logo/playland.png"></v-img> -->
       <div class="d-flex justify-center">
-        <img width="120" height="64" src="@/assets/img/logo/playland.png" />
+        <img width="100" height="64" src="@/assets/img/logo/playland.png" />
       </div>
       <v-list class="py-0">
         <v-list-item
@@ -90,13 +90,13 @@ export default {
         },
         {
           icon: 'mdi-apps',
-          title: 'เบิกงบ AFF',
-          to: '/rrr',
+          title: 'เบิกงบสนับสนุน',
+          to: '/GeneralSupportBudget',
         },
         {
           icon: 'mdi-apps',
           title: 'เงินเดือน',
-          to: '/rrr',
+          to: '/GeneralDynamicInput',
         },
       ],
       miniVariant: false,
