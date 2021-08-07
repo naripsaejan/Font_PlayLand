@@ -6,7 +6,7 @@
 
         <v-stepper-content step="1">
           <v-card class="mb-12" elevation="2" outlined shaped>
-            <PayDividends />
+            <BudgetPageOne />
           </v-card>
           <v-btn color="primary" @click="e6 = 2"> ยืนยัน </v-btn>
           <v-btn text> เคลียร์ข้อมูล </v-btn>
@@ -35,11 +35,11 @@
 </template>
 
 <script>
-import PayDividends from '~/components/budget/PayDividends.vue'
+import BudgetPageOne from '~/components/budget/BudgetPageOne.vue'
 import CostDetails from '~/components/budget/CostDetails.vue'
 import ConsiderPurchasing from '~/components/budget/ConsiderPurchasing.vue'
 export default {
-  components: { PayDividends, CostDetails, ConsiderPurchasing },
+  components: { BudgetPageOne, CostDetails, ConsiderPurchasing },
   data() {
     return {
       e6: 1,

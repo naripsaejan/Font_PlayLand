@@ -96,7 +96,7 @@ export default {
         {
           icon: 'mdi-apps',
           title: 'เงินเดือน',
-          to: '/rrr',
+          to: '/GeneralDynamicInput',
         },
       ],
       miniVariant: false,
