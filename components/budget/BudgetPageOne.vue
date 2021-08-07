@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-form v-model="valid">
-      <v-row class="mt-3">
+      <v-row class="mt-3" style="max-width: 1000px">
         <p class="d-flex justify-center mt-2">
           แบบเสนอราคาสำหรับเบิกจ่ายงบประมาณ
         </p>
