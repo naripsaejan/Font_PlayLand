@@ -90,8 +90,8 @@ export default {
         },
         {
           icon: 'mdi-apps',
-          title: 'เบิกงบ AFF',
-          to: '/rrr',
+          title: 'เบิกงบสนับสนุน',
+          to: '/GeneralSupportBudget',
         },
         {
           icon: 'mdi-apps',
