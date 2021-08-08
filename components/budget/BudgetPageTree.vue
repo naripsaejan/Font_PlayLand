@@ -593,22 +593,16 @@
           </v-col>
 
           <!--  -->
-          <div class="d-flex">
-            <v-col cols="6">
-              <v-col class="d-flex" cols="12">
-                <v-col cols="1" class="d-flex align-center px-0">
-                  <v-subheader class="px-0">ลงชื่อ</v-subheader>
-                </v-col>
-                <v-col cols="8" class="px-2">
-                  <v-text-field></v-text-field>
-                </v-col>
-                <v-col cols="2" class="d-flex align-center px-0">
-                  <v-subheader class="px-0">ผู้จ่ายเงิน</v-subheader>
-                </v-col></v-col
-              >
-              <v-col class="d-flex" cols="12">
-                <v-col cols="4" class="px-2">
-                  <v-subheader class="px-0">อนุมัติในระบบ</v-subheader>
+          <v-col class="d-flex pl-0">
+            <v-col>
+              <v-col class="d-flex align-center">
+                <v-subheader class="pr-2 pl-0">ลงชื่อ</v-subheader>
+                <v-text-field></v-text-field>
+                <v-subheader class="px-0">ผู้จ่ายเงิน</v-subheader>
+              </v-col>
+              <v-col class="d-flex align-center" cols="12">
+                <v-subheader class="px-0">อนุมัติในระบบ</v-subheader>
+                <v-col class="py-0">
                   <v-dialog
                     ref="dialog_end"
                     v-model="modal_end"
@@ -641,7 +635,7 @@
                     </v-date-picker>
                   </v-dialog>
                 </v-col>
-                <v-col cols="4" class="px-2">
+                <v-col class="py-0">
                   <v-dialog
                     ref="dialog"
                     v-model="modal2"
@@ -681,31 +675,20 @@
                 </v-col>
               </v-col>
             </v-col>
-            <v-col cols="6">
-              <v-col class="d-flex" cols="12">
-                <v-col cols="1" class="d-flex align-center px-0">
-                  <v-subheader class="px-0">ลงชื่อ</v-subheader>
-                </v-col>
-                <v-col cols="8" class="px-2">
-                  <v-text-field></v-text-field>
-                </v-col>
-                <v-col cols="2" class="d-flex align-center px-0">
-                  <v-subheader class="px-0">ผู้รับเงิน</v-subheader>
-                </v-col>
+            <v-col>
+              <v-col class="d-flex align-center">
+                <v-subheader class="pr-2 pl-0">ลงชื่อ</v-subheader>
+                <v-text-field></v-text-field>
+                <v-subheader class="px-0">ผู้รับเงิน</v-subheader>
               </v-col>
-              <v-col class="d-flex" cols="12">
-                <v-col cols="1" class="d-flex align-center px-0">
-                  <v-subheader class="px-0">ลงชื่อ</v-subheader>
-                </v-col>
-                <v-col cols="8" class="px-2">
-                  <v-text-field></v-text-field>
-                </v-col>
-                <v-col cols="2" class="d-flex align-center px-0">
-                  <v-subheader class="px-0">ผู้อนุมัติ</v-subheader>
-                </v-col>
+              <v-col class="d-flex align-center">
+                <v-subheader class="pr-2 pl-0">ลงชื่อ</v-subheader>
+
+                <v-text-field></v-text-field>
+                <v-subheader class="px-0">ผู้รับเงิน</v-subheader>
               </v-col>
             </v-col>
-          </div>
+          </v-col>
           <!--  -->
         </div>
       </v-row>
