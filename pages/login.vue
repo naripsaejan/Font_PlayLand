@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="app">
     <div class="d-flex justify-center">
       <img width="50%" height="50%" src="@/assets/img/logo/playland.png" />
     </div>

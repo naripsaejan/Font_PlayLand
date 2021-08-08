@@ -90,13 +90,13 @@ export default {
         },
         {
           icon: 'mdi-apps',
-          title: 'เบิกงบ AFF',
-          to: '/rrr',
+          title: 'เบิกงบสนับสนุน',
+          to: '/GeneralSupportBudget',
         },
         {
           icon: 'mdi-apps',
           title: 'เงินเดือน',
-          to: '/rrr',
+          to: '/GeneralDynamicInput',
         },
       ],
       miniVariant: false,

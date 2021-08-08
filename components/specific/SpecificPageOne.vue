@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-form v-model="valid">
+    <v-form v-model="valid_specific">
       <v-row class="mt-3">
         <p class="d-flex justify-center mt-2">รายละเอียดค่าใช้จ่าย</p>
         <div class="d-grid justify-end">
@@ -643,7 +643,7 @@
 <script>
 export default {
   data: () => ({
-    valid: false,
+    valid_specific: false,
     firstname: '',
     lastname: '',
     nameRules: [
@@ -671,6 +671,7 @@ export default {
     menu2: false,
     modal2: false,
     radio1: null,
+    items2: ['a', 'b', 'c'],
   }),
 }
 </script>
