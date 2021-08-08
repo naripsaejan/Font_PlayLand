@@ -719,7 +719,6 @@ export default {
       radio3: null,
     }
   },
-  methods: {},
 }
 </script>
 <style lang="scss" scoped>
