@@ -16,7 +16,7 @@
 
         <v-stepper-content step="2">
           <v-card class="mb-12" elevation="2" outlined shaped>
-            <CostDetails
+            <BudgetPageTwo
           /></v-card>
           <v-btn color="primary" @click="e6 = 3"> ยืนยัน </v-btn>
           <v-btn text> เคลียร์ข้อมูล </v-btn>
@@ -36,10 +36,10 @@
 
 <script>
 import BudgetPageOne from '~/components/budget/BudgetPageOne.vue'
-import CostDetails from '~/components/budget/CostDetails.vue'
-import ConsiderPurchasing from '~/components/budget/ConsiderPurchasing.vue'
+import BudgetPageTwo from '~/components/budget/BudgetPageTree.vue'
+import BudgetPageTree from '~/components/budget/BudgetPageTree.vue'
 export default {
-  components: { BudgetPageOne, CostDetails, ConsiderPurchasing },
+  components: { BudgetPageOne, BudgetPageTwo, BudgetPageTree },
   data() {
     return {
       e6: 1,
