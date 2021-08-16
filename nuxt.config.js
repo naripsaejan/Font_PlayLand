@@ -1,6 +1,12 @@
 import colors from 'vuetify/es5/util/colors'
-
+const env = require('dotenv').config()
 export default {
+  env: {
+    apiUrl: process.env.API_POSTS,
+  },
+  // privateRuntimeConfig: {
+  //   baseURL: process.env.API_POSTS || 'http://localhost:5000',
+  // },
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
@@ -86,7 +92,9 @@ export default {
     },
   },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    baseURL: 'http://localhost:5000/posts',
+  },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
