@@ -1,61 +1,83 @@
 <template>
-  <div class="mx-5 mt-5">
-    <p>Our Url is: {{ $this.baseUrl }}</p>
+  <div>
+    <div class="d-flex justify-center">
+      <img width="50%" height="50%" src="@/assets/img/logo/playland.png" />
+    </div>
+    <div class="d-flex justify-center">
+      <p class="text-left" style="font-size: 150px">Welcome</p>
+    </div>
   </div>
 </template>
 
 <script>
-// import { mapMutations, mapState } from 'vuex'
-
 export default {
   middleware: 'auth',
-  data: {},
-  computed: {
-    // ...mapState({ history: (state) => state.history }),
-  },
-  methods: {
-    // testload() {
-    //   console.log('work load')
-    // },
-  },
-  watch: {},
-  mounted() {
-    // this.history()
-    // this.testload()
+
+  components: {},
+  data() {
+    return {
+      e1: 1,
+    }
   },
 }
 </script>
 
 <style scoped>
-div {
+.set-top {
+  position: fixed;
+  z-index: 1;
+  background-color: wheat;
+  width: 100%;
+}
+.set-bt {
+  bottom: 0px;
+  position: fixed;
+  /* background: rgb(179, 48, 48); */
+  width: 70%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-end;
+  height: 52px;
 }
 
-ul {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
+* {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  line-height: 1.5;
+  box-sizing: border-box;
+  color: #44585d;
 }
 
-li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.5rem;
+.container {
+  height: 100%;
+  /* overflow: scroll; */
+  overflow: hidden;
+}
+h1 {
+  margin: 0;
+  text-align: center;
 }
 
-input[type='checkbox'] {
-  margin: 0.5rem;
+/* custom scrollbar */
+::-webkit-scrollbar {
+  width: 20px;
 }
 
-button {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
+::-webkit-scrollbar-track {
+  background-color: transparent;
 }
 
-.done {
-  text-decoration: line-through;
+::-webkit-scrollbar-thumb {
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
+}
+.set-box {
+  margin-top: 57px;
+  height: 85vh;
 }
 </style>

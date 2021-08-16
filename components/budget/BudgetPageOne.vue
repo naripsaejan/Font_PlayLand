@@ -14,8 +14,9 @@
                 v-model="firstname1"
                 label="เลขที่เอกสาร"
               ></v-text-field>
+              <!-- date_one modal_one -->
               <v-dialog
-                ref="dialog"
+                ref="dialog_one"
                 v-model="modal_one"
                 :return-value.sync="date_one"
                 persistent
@@ -39,12 +40,13 @@
                   <v-btn
                     text
                     color="primary"
-                    @click="$refs.dialog.save(date_one)"
+                    @click="$refs.dialog_one.save(date_one)"
                   >
                     OK
                   </v-btn>
                 </v-date-picker>
               </v-dialog>
+              <!-- end date_one modal_one -->
             </v-col>
           </div>
           <!--  -->
@@ -84,6 +86,7 @@
           <!--  -->
           <v-col class="d-flex">
             <v-subheader class="pl-0">มีระยะเวลาตั้งแต่</v-subheader>
+            <!-- date_start modal_start -->
             <v-dialog
               ref="dialog_start"
               v-model="modal_start"
@@ -115,37 +118,40 @@
                 </v-btn>
               </v-date-picker>
             </v-dialog>
+            <!-- end date_start modal_start -->
+            <!-- date_finished modal_finished -->
             <v-dialog
-              ref="dialog_end"
-              v-model="modal_end"
-              :return-value.sync="date_end"
+              ref="dialog_finished"
+              v-model="modal_finished"
+              :return-value.sync="date_finished"
               persistent
               width="290px"
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
-                  v-model="date_end"
-                  label="สิ้นสุด"
+                  v-model="date_finished"
+                  label="เริ่ม"
                   prepend-icon="mdi-calendar"
                   readonly
                   v-bind="attrs"
                   v-on="on"
                 ></v-text-field>
               </template>
-              <v-date-picker v-model="date_start" scrollable>
+              <v-date-picker v-model="date_finished" scrollable>
                 <v-spacer></v-spacer>
-                <v-btn text color="primary" @click="modal_end = false">
+                <v-btn text color="primary" @click="modal_finished = false">
                   Cancel
                 </v-btn>
                 <v-btn
                   text
                   color="primary"
-                  @click="$refs.dialog_end.save(date_end)"
+                  @click="$refs.dialog_finished.save(date_finished)"
                 >
                   OK
                 </v-btn>
               </v-date-picker>
             </v-dialog>
+            <!--finished date_finished modal_finished -->
           </v-col>
           <!--  -->
           <v-col class="d-flex">
@@ -171,30 +177,30 @@
             >
 
             <v-dialog
-              ref="dialog_end"
-              v-model="modal_end"
-              :return-value.sync="date_end"
+              ref="dialog_two"
+              v-model="modal_two"
+              :return-value.sync="date_two"
               persistent
               width="290px"
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
-                  v-model="date_end"
+                  v-model="date_two"
                   prepend-icon="mdi-calendar"
                   readonly
                   v-bind="attrs"
                   v-on="on"
                 ></v-text-field>
               </template>
-              <v-date-picker v-model="date" scrollable>
+              <v-date-picker v-model="date_two" scrollable>
                 <v-spacer></v-spacer>
-                <v-btn text color="primary" @click="modal_end = false">
+                <v-btn text color="primary" @click="modal_two = false">
                   Cancel
                 </v-btn>
                 <v-btn
                   text
                   color="primary"
-                  @click="$refs.dialog_end.save(date_end)"
+                  @click="$refs.dialog_two.save(date_two)"
                 >
                   OK
                 </v-btn>
@@ -254,7 +260,7 @@
           <div class="d-flex justify-center pt-0">
             <v-col cols="4" class="pt-0">
               <v-dialog
-                ref="dialog_end"
+                ref="dialog_tree"
                 v-model="modal_tree"
                 :return-value.sync="date_tree"
                 persistent
@@ -278,7 +284,7 @@
                   <v-btn
                     text
                     color="primary"
-                    @click="$refs.dialog_end.save(date_tree)"
+                    @click="$refs.dialog_tree.save(date_tree)"
                   >
                     OK
                   </v-btn>
@@ -313,50 +319,55 @@
 
 <script>
 export default {
-  data: () => ({
-    valid: false,
-    firstname: '',
-    firstname1: '',
-    firstname2: '',
-    firstname3: '',
-    firstname4: '',
-    firstname5: '',
-    firstname6: '',
-    lastname: '',
-    nameRules: [
-      (v) => !!v || 'Name is required',
-      (v) => v.length <= 10 || 'Name must be less than 10 characters',
-    ],
-    email: '',
-    emailRules: [
-      (v) => !!v || 'E-mail is required',
-      (v) => /.+@.+/.test(v) || 'E-mail must be valid',
-    ],
-    date_one: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      .toISOString()
-      .substr(0, 10),
-    date_start: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      .toISOString()
-      .substr(0, 10),
-    date_end: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      .toISOString()
-      .substr(0, 10),
-    date_two: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      .toISOString()
-      .substr(0, 10),
-    date_tree: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      .toISOString()
-      .substr(0, 10),
-    modal_one: false,
-    modal_two: false,
-    modal_tree: false,
-    modal_start: false,
-    modal_end: false,
-    time: null,
-    menu2: false,
-    modal2: false,
-    radio1: null,
-  }),
+  data() {
+    return {
+      valid: false,
+      firstname: '',
+      firstname1: '',
+      firstname2: '',
+      firstname3: '',
+      firstname4: '',
+      firstname5: '',
+      firstname6: '',
+      lastname: '',
+      nameRules: [
+        (v) => !!v || 'Name is required',
+        (v) => v.length <= 10 || 'Name must be less than 10 characters',
+      ],
+      email: '',
+      emailRules: [
+        (v) => !!v || 'E-mail is required',
+        (v) => /.+@.+/.test(v) || 'E-mail must be valid',
+      ],
+
+      date_one: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
+      date_start: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
+      date_finished: new Date(
+        Date.now() - new Date().getTimezoneOffset() * 60000
+      )
+        .toISOString()
+        .substr(0, 10),
+      date_two: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
+      date_tree: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
+      modal_one: false,
+      modal_two: false,
+      modal_tree: false,
+      modal_start: false,
+      modal_finished: false,
+      time: null,
+      menu2: false,
+      modal2: false,
+      radio1: null,
+    }
+  },
 }
 </script>
 <style lang="scss" scoped>

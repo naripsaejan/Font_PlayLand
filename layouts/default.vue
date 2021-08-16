@@ -71,11 +71,6 @@
 </template>
 
 <script>
-fetch('http://localhost:5000/posts').then((result) => {
-  return result.json().then((data) => {
-    consloe.log('test api', data)
-  })
-})
 export default {
   data() {
     return {
@@ -120,31 +115,9 @@ export default {
         console.log(err)
       }
     },
-    httpGet(theUrl) {
-      var xmlHttp = new XMLHttpRequest()
-      xmlHttp.open('GET', theUrl, false) // false for synchronous request
-      xmlHttp.send(null)
-      return xmlHttp.responseText
-    },
-    test() {
-      fetch(
-        'https://us-central1-votegame-webadmin.cloudfunctions.net/vote/api/game',
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json; charset-8',
-          },
-        }
-      ).then((result) => {
-        return result.json().then((data) => {
-          consloe.log('test api', data)
-        })
-      })
-    },
   },
   mounted() {
     console.log('test', this.$nuxt.$store.state.history)
-    console.log('test2', this.$axios.setBaseURL('http://localhost:5000/posts'))
   },
 }
 </script>
