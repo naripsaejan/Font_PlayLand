@@ -250,7 +250,15 @@ export default {
       date_one: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
+      date_start: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
+      date_end: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
       modal: false,
+      modal_start: false,
+      modal_end: false,
       time: null,
       menu2: false,
       modal2: false,

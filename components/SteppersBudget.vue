@@ -28,8 +28,8 @@
             shaped
             style="max-width: 1000px"
           >
-            <BudgetPageTwo />
-          </v-card>
+            <BudgetPageTwo
+          /></v-card>
           <v-btn color="primary" @click="e6 = 3"> ยืนยัน </v-btn>
           <v-btn text> เคลียร์ข้อมูล </v-btn>
         </v-stepper-content>
@@ -50,8 +50,8 @@
             shaped
             style="max-width: 1000px"
           >
-            <BudgetPageTree />
-          </v-card>
+            <BudgetPageTree
+          /></v-card>
           <v-btn color="primary" @click="e6 = 4"> Continue </v-btn>
           <v-btn text> Cancel </v-btn>
         </v-stepper-content>
@@ -65,11 +65,7 @@ import BudgetPageOne from '~/components/budget/BudgetPageOne.vue'
 import BudgetPageTwo from '~/components/budget/BudgetPageTwo.vue'
 import BudgetPageTree from '~/components/budget/BudgetPageTree.vue'
 export default {
-  components: {
-    BudgetPageOne,
-    BudgetPageTwo,
-    BudgetPageTree,
-  },
+  components: { BudgetPageOne, BudgetPageTwo, BudgetPageTree },
   data() {
     return {
       e6: 1,
