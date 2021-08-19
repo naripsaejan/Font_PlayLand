@@ -71,13 +71,14 @@
 </template>
 
 <script>
-async function getposts() {
-  let res = await fetch('http://localhost:5000/posts')
-  console.log(res)
-  let posts = await res.json()
-  return posts
-}
-getposts().then((data) => console.log('get posts', data))
+// import { mapState } from 'vuex'
+// async function getposts() {
+//   let res = await fetch('http://localhost:5000/posts')
+//   console.log(res)
+//   let posts = await res.json()
+//   return posts
+// }
+// getposts().then((data) => console.log('get posts', data))
 export default {
   data() {
     return {
@@ -126,5 +127,10 @@ export default {
   mounted() {
     console.log('test', this.$nuxt.$store.state.history)
   },
+  // computed: {
+  //   ...mapState({
+  //     history: (state) => state.history.order,
+  //   }),
+  // },
 }
 </script>
