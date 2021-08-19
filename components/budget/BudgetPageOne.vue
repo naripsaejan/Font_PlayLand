@@ -396,7 +396,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import 'assets/budget.scss';
-
 .btn-send {
   position: absolute;
   right: 0;
