@@ -36,7 +36,8 @@ export default {
         })
         console.log(response)
         if (response.data.success) {
-          this.$router.replace({ name: 'blogs' })
+          // this.$router.replace({ name: 'blogs' })
+          this.$router.replace({ name: 'index' })
         }
       } catch (err) {
         console.log(err)

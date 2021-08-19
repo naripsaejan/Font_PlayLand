@@ -1,23 +1,75 @@
 <template>
-  <div>
+  <!-- <div>
     <div class="d-flex justify-center">
       <img width="50%" height="50%" src="@/assets/img/logo/playland.png" />
     </div>
     <div class="d-flex justify-center">
       <p class="text-left" style="font-size: 150px">Welcome</p>
     </div>
+
+  </div> -->
+  <div>
+    <h1>Gins</h1>
+    <form @submit.prevent="addGin">
+      <h4>New Product</h4>
+      <p>
+        <label for="name" class="input-label">Title:</label>
+        <input
+          id="name"
+          v-model="title"
+          type="text"
+          name="name"
+          class="input"
+        />
+      </p>
+      <p>
+        <label for="name" class="input-label">description:</label>
+        <input
+          id="name"
+          v-model="description"
+          type="text"
+          name="name"
+          class="input"
+        />
+      </p>
+      <p>
+        <button type="submit" value="Submit" class="button">Add Gin</button>
+      </p>
+    </form>
   </div>
 </template>
 
 <script>
-export default {
-  middleware: 'auth',
+import axios from 'axios'
+// export default {
+//   middleware: 'auth',
 
-  components: {},
+//   components: {},
+//   data() {
+//     return {
+//       e1: 1,
+//     }
+//   },
+// }
+export default {
   data() {
     return {
-      e1: 1,
+      title: '',
+      description: '',
     }
+  },
+  methods: {
+    addGin() {
+      console.log(this.title, this.description)
+      axios.post('http://localhost:5000/posts', {
+        title: this.title,
+        description: this.description,
+      })
+      //     .then((Response) => {})
+      //     .catch((err) => {
+      //       this.errors.push(err)
+      //     })
+    },
   },
 }
 </script>

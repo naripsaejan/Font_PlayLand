@@ -14,12 +14,9 @@
           >
             <BudgetPageOne />
           </v-card>
-          <v-btn color="primary" @click="e6 = 2"> ยืนยัน </v-btn>
-          <v-btn text> เคลียร์ข้อมูล </v-btn>
+          <v-btn color="primary" @click="e6 = 2"> หน้าถัดไป </v-btn>
         </v-stepper-content>
-
         <v-stepper-step :complete="e6 > 2" step="2"> page 2 </v-stepper-step>
-
         <v-stepper-content step="2" class="d-flex justify-center">
           <v-card
             class="mb-12"
@@ -30,12 +27,10 @@
           >
             <BudgetPageTwo />
           </v-card>
-          <v-btn color="primary" @click="e6 = 3"> ยืนยัน </v-btn>
-          <v-btn text> เคลียร์ข้อมูล </v-btn>
+          <v-btn color="primary" @click="e6 = 3">หน้าถัดไป</v-btn>
+          <v-btn color="primary" @click="e6 = 1"> ย้อนกลับ </v-btn>
         </v-stepper-content>
-
         <v-stepper-step :complete="e6 > 3" step="3"> page 3 </v-stepper-step>
-
         <v-stepper-content
           step="3"
           class="d-flex justify-center"
@@ -52,8 +47,8 @@
           >
             <BudgetPageTree />
           </v-card>
-          <v-btn color="primary" @click="e6 = 4"> Continue </v-btn>
-          <v-btn text> Cancel </v-btn>
+          <!-- <v-btn color="primary" @click="e6 = 4">หน้าถัดไป</v-btn> -->
+          <v-btn color="primary" @click="e6 = 2">ย้อนกลับ</v-btn>
         </v-stepper-content>
       </v-stepper>
     </v-app>
@@ -61,19 +56,25 @@
 </template>
 
 <script>
-import BudgetPageOne from '~/components/budget/BudgetPageOne.vue'
-import BudgetPageTwo from '~/components/budget/BudgetPageTwo.vue'
-import BudgetPageTree from '~/components/budget/BudgetPageTree.vue'
 export default {
+  props: ['item'],
   components: {
-    BudgetPageOne,
-    BudgetPageTwo,
-    BudgetPageTree,
+    BudgetPageOne: () => import('~/components/budget/BudgetPageOne.vue'),
+    BudgetPageTwo: () => import('~/components/budget/BudgetPageTwo.vue'),
+    BudgetPageTree: () => import('~/components/budget/BudgetPageTree.vue'),
   },
   data() {
     return {
       e6: 1,
+      show: false,
     }
+  },
+  methods: {
+    // pagesubmit() {
+    //   console.log('asdas')
+    //   this.$emit('')
+    //   // e6 = 2
+    // },
   },
 }
 </script>
