@@ -312,25 +312,27 @@
             <!--  -->
             <v-col class="d-flex">
               <v-radio-group v-model="radio_account" class="pr-4">
-                <v-radio label="ผ่าน" value="1"></v-radio>
+                <v-radio label="ผ่าน" value="true"></v-radio>
               </v-radio-group>
               <v-select
                 class="pr-4"
                 :items="items2"
-                label="แคชเชียร์เช็ค ธนาคาร"
-                :disabled="radio_account != 1"
+                label="แคชเชียร์เช็คธนาคาร"
+                :disabled="radio_account != 'true'"
+                v-model="cashier"
               ></v-select>
               <v-text-field
                 class="pr-4"
-                v-model="firstname_account"
                 label="เลขที่บัญชี"
-                :disabled="radio_account != 1"
+                :disabled="radio_account != 'true'"
+                v-model="numberaccount"
               ></v-text-field>
               <v-text-field
+                v-model="confirm_account"
                 class="pr-4"
                 cols="10"
                 label="สั่งจ่าย"
-                :disabled="radio_account != 1"
+                :disabled="radio_account != 'true'"
               ></v-text-field>
               <v-dialog
                 class="pr-4"
@@ -347,7 +349,7 @@
                     readonly
                     v-bind="attrs"
                     v-on="on"
-                    :disabled="radio_account != 1"
+                    :disabled="radio_account != 'true'"
                   ></v-text-field>
                 </template>
                 <v-date-picker v-model="date_account" scrollable>
@@ -368,27 +370,29 @@
             <!--  -->
             <v-col class="d-flex">
               <v-radio-group v-model="radio_account" class="pr-4">
-                <v-radio label="ไม่ผ่าน" value="2"></v-radio>
+                <v-radio label="ไม่ผ่าน" value="false"></v-radio>
               </v-radio-group>
 
               <v-select
+                v-model="bangkok"
                 class="pr-4"
                 :items="items2"
                 label="โอนเงิน ธนาคาร"
-                :disabled="radio_account != 2"
+                :disabled="radio_account != 'false'"
               ></v-select>
 
               <v-text-field
+                v-model="number_bangkok"
                 class="pr-4"
-                v-model="firstname_test"
                 label="เลขที่บัญชี"
-                :disabled="radio_account != 2"
+                :disabled="radio_account != 'false'"
               ></v-text-field>
 
               <v-text-field
+                v-model="name_bangkok"
                 cols="10"
                 label="ชื่อบัญชี"
-                :disabled="radio_account != 2"
+                :disabled="radio_account != 'false'"
               ></v-text-field>
             </v-col>
             <!--  -->
@@ -645,17 +649,25 @@
           <v-col class="d-felx align-center px-0">
             <v-radio-group v-model="radio_receive">
               <v-col
-                ><v-radio value="Google" label="ไม่มีเงินต้องคืน"> </v-radio
+                ><v-radio value="ไม่มีเงินต้องคืน" label="ไม่มีเงินต้องคืน">
+                </v-radio
               ></v-col>
 
               <v-col class="d-flex align-center">
-                <v-radio value="Duckduckgo" label=" คืนเงินจำนวน "> </v-radio>
+                <v-radio value="คืนเงินจำนวน" label="คืนเงินจำนวน"> </v-radio>
                 <v-text-field
                   class="px-4"
                   label="จำนวนทั้งสิ้น"
                   suffix="บาท"
+                  :disabled="radio_receive != 'คืนเงินจำนวน'"
+                  v-model="total"
                 ></v-text-field>
-                <v-text-field prefix="(" suffix=")บาท"></v-text-field>
+                <v-text-field
+                  v-model="txt_total"
+                  :disabled="radio_receive != 'คืนเงินจำนวน'"
+                  prefix="("
+                  suffix=")บาท"
+                ></v-text-field>
               </v-col>
             </v-radio-group>
           </v-col>
@@ -665,7 +677,7 @@
             <v-col>
               <v-col class="d-flex align-center">
                 <v-subheader class="pr-2 pl-0">ลงชื่อ</v-subheader>
-                <v-text-field></v-text-field>
+                <v-text-field v-model="slipperson_pay"></v-text-field>
                 <v-subheader class="px-0">ผู้จ่ายเงิน</v-subheader>
               </v-col>
               <v-col class="d-flex align-center" cols="12">
@@ -754,13 +766,13 @@
             <v-col>
               <v-col class="d-flex align-center">
                 <v-subheader class="pr-2 pl-0">ลงชื่อ</v-subheader>
-                <v-text-field></v-text-field>
+                <v-text-field v-model="slipperson_receive1"></v-text-field>
                 <v-subheader class="px-0">ผู้รับเงิน</v-subheader>
               </v-col>
               <v-col class="d-flex align-center">
                 <v-subheader class="pr-2 pl-0">ลงชื่อ</v-subheader>
 
-                <v-text-field></v-text-field>
+                <v-text-field v-model="slipperson_receive2"></v-text-field>
                 <v-subheader class="px-0">ผู้รับเงิน</v-subheader>
               </v-col>
             </v-col>
@@ -815,7 +827,6 @@ export default {
       modal_account_day: false,
       modal_time_account: false,
       time_account: null,
-      radio_account: null,
       date_account_day: '',
 
       modal_account_day2: false,
@@ -841,6 +852,22 @@ export default {
       note: '',
       person_pay: '',
       total_money: '',
+      //
+      slip_date: '',
+      slipperson_pay: '',
+      slipperson_receive1: '',
+      slipapprove_day: '',
+      slipapprove_time: '',
+      slipperson_receive2: '',
+      cashier: '',
+      numberaccount: '',
+      bangkok: '',
+      number_bangkok: '',
+      name_bangkok: '',
+      total: '',
+      txt_total: '',
+      confirm_account: '',
+      slip_date: '',
     }
   },
 
@@ -865,6 +892,25 @@ export default {
         this.time_manage = ''
         console.log('false_radio_manage')
       }
+      if (this.radio_account == 'true') {
+        console.log('true_radio_account', this.radio_account)
+        this.bangkok = ''
+        this.number_bangkok = ''
+        this.name_bangkok = ''
+      }
+      if (this.radio_account == 'false') {
+        console.log('false_radio_account', this.radio_account)
+        this.cashier = ''
+        this.numberaccount = ''
+        this.confirm_account = ''
+        this.date_account = ''
+      }
+      if (this.radio_receive == 'ไม่มีเงินต้องคืน') {
+        this.total = ''
+        this.txt_total = ''
+      }
+      // if (this.radio_receive == 'คืนเงินจำนวน') {
+      // }
       this.senddate()
     },
     senddate() {
@@ -883,8 +929,8 @@ export default {
         manage_radio: [
           {
             manage_id: this.radio_manage,
-            manage_date: this.date_purchase,
-            manage_time: this.time_purchase,
+            manage_date: this.date_manage,
+            manage_time: this.time_manage,
             manage_txt: this.manage_txt,
           },
         ],
@@ -893,14 +939,14 @@ export default {
         //
         account_radio: [
           {
-            radio_id: 'true',
-            cashier: 'null',
-            numberaccount: '11:11',
-            confirm_account: 'null',
-            cashier_date: '1/1/1111',
-            bangkok: 'null',
-            number_bangkok: 'null',
-            name_bangkok: 'null',
+            radio_id: this.radio_account,
+            cashier: this.cashier,
+            numberaccount: this.numberaccount,
+            confirm_account: this.confirm_account,
+            cashier_date: this.date_account,
+            bangkok: this.bangkok,
+            number_bangkok: this.number_bangkok,
+            name_bangkok: this.name_bangkok,
           },
         ],
         account_payment: this.account_payment,
@@ -916,17 +962,17 @@ export default {
         //
         slip_radio: [
           {
-            radio_id: 'true',
-            total: 'tatal_slip',
-            txt_total: 'txt_slip',
+            radio_id: this.radio_receive,
+            total: this.total,
+            txt_total: this.txt_total,
           },
         ],
-        slip_date: '1/1/1111',
-        slipperson_pay: 'pay_slip',
-        slipperson_receive1: 'receive_slip',
-        slipapprove_day: 'asas',
-        slipapprove_time: 'dddd',
-        slipperson_receive2: 'receive_slip',
+        slip_date: this.date_receive,
+        slipperson_pay: this.slipperson_pay,
+        slipperson_receive1: this.slipperson_receive1,
+        slipapprove_day: this.date_receive_end,
+        slipapprove_time: this.time_receive,
+        slipperson_receive2: this.slipperson_receive2,
       })
       this.$refs.form.reset()
     },
