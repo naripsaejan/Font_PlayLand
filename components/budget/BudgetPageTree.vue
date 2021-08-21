@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-form v-model="valid">
+    <v-form ref="form" @submit.prevent="PostPageThree">
       <v-row class="mt-3" style="max-width: 1000px">
         <div class="mb-2">
           <div id="purchase">
@@ -8,7 +8,7 @@
             <div class="d-flex">
               <v-col class="d-flex align-center">
                 <v-radio-group v-model="radio_purchase">
-                  <v-radio label="ผ่าน " value="1" class="pr-4"></v-radio>
+                  <v-radio label="ผ่าน " value="true" class="pr-4"></v-radio>
                 </v-radio-group>
                 <v-subheader>อนุมัติในระบบ</v-subheader>
                 <v-dialog
@@ -25,7 +25,7 @@
                       readonly
                       v-bind="attrs"
                       v-on="on"
-                      :disabled="radio_purchase != 1"
+                      :disabled="radio_purchase != 'true'"
                     ></v-text-field>
                   </template>
                   <v-date-picker v-model="date_purchase" scrollable>
@@ -59,7 +59,7 @@
                       readonly
                       v-bind="attrs"
                       v-on="on"
-                      :disabled="radio_purchase != 1"
+                      :disabled="radio_purchase != 'true'"
                     ></v-text-field>
                   </template>
                   <v-time-picker
@@ -91,17 +91,20 @@
             <div class="d-flex">
               <v-col cols="" class="d-flex align-center">
                 <v-radio-group v-model="radio_purchase">
-                  <v-radio label="ไม่ผ่าน" value="2"></v-radio>
+                  <v-radio label="ไม่ผ่าน" value="false"></v-radio>
                 </v-radio-group>
                 <v-subheader>เนื่องจาก</v-subheader>
-                <v-text-field :disabled="radio_purchase != 2"></v-text-field>
+                <v-text-field
+                  :disabled="radio_purchase != 'false'"
+                  v-model="purchase_txt"
+                ></v-text-field>
               </v-col>
             </div>
             <!--  -->
             <div class="d-flex justify-center">
               <v-col cols="5" class="d-flex align-center">
                 <v-subheader>ลงชื่อ</v-subheader>
-                <v-text-field></v-text-field>
+                <v-text-field v-model="purchase_sing"></v-text-field>
                 <v-subheader>ฝ่ายจัดซื้อ</v-subheader>
               </v-col>
               <!--  -->
@@ -153,7 +156,7 @@
             <div class="d-flex">
               <v-col class="d-flex align-center">
                 <v-radio-group v-model="radio_manage">
-                  <v-radio label="ผ่าน " value="1" class="pr-4"></v-radio>
+                  <v-radio label="ผ่าน " value="true" class="pr-4"></v-radio>
                 </v-radio-group>
                 <v-subheader>อนุมัติในระบบ</v-subheader>
                 <v-dialog
@@ -170,7 +173,7 @@
                       readonly
                       v-bind="attrs"
                       v-on="on"
-                      :disabled="radio_manage != 1"
+                      :disabled="radio_manage != 'true'"
                     ></v-text-field>
                   </template>
                   <v-date-picker v-model="date_manage" scrollable>
@@ -204,7 +207,7 @@
                       readonly
                       v-bind="attrs"
                       v-on="on"
-                      :disabled="radio_manage != 1"
+                      :disabled="radio_manage != 'true'"
                     ></v-text-field>
                   </template>
                   <v-time-picker
@@ -236,17 +239,20 @@
             <div class="d-flex">
               <v-col cols="" class="d-flex align-center">
                 <v-radio-group v-model="radio_manage">
-                  <v-radio label="ไม่ผ่าน" value="2"></v-radio>
+                  <v-radio label="ไม่ผ่าน" value="false"></v-radio>
                 </v-radio-group>
                 <v-subheader>เนื่องจาก</v-subheader>
-                <v-text-field :disabled="radio_manage != 2"></v-text-field>
+                <v-text-field
+                  :disabled="radio_manage != 'false'"
+                  v-model="manage_txt"
+                ></v-text-field>
               </v-col>
             </div>
             <!--  -->
             <div class="d-flex justify-center">
               <v-col cols="5" class="d-flex align-center">
                 <v-subheader>ลงชื่อ</v-subheader>
-                <v-text-field></v-text-field>
+                <v-text-field v-model="manage_sing"></v-text-field>
                 <v-subheader>ฝ่ายบริหาร</v-subheader>
               </v-col>
               <!--  -->
@@ -296,7 +302,11 @@
             <p class="mt-2 ml-4">การจ่ายเงินโดยฝ่ายบัญชี</p>
             <v-col cols="12" class="d-flex">
               <v-col cols="4">
-                <v-select :items="items" label="วิธีการชำระเงิน"></v-select>
+                <v-select
+                  v-model="account_payment"
+                  :items="items"
+                  label="วิธีการชำระเงิน"
+                ></v-select>
               </v-col>
             </v-col>
             <!--  -->
@@ -384,15 +394,20 @@
             <!--  -->
             <v-col class="d-flex">
               <v-text-field
+                v-model="total_money"
                 class="pr-4"
                 label="จำนวนทั้งสิ้น"
                 suffix="บาท"
               ></v-text-field>
-              <v-text-field prefix="(" suffix=")บาท"></v-text-field>
+              <v-text-field
+                v-model="total_moneytext"
+                prefix="("
+                suffix=")บาท"
+              ></v-text-field>
             </v-col>
             <!--  -->
             <v-col>
-              <v-text-field label="หมายเหตุ"></v-text-field>
+              <v-text-field v-model="note" label="หมายเหตุ"></v-text-field>
             </v-col>
             <!--  -->
 
@@ -483,7 +498,7 @@
                 <v-col class="d-flex px-0">
                   <v-col class="px-2 d-flex align-center">
                     <v-subheader class="pr-2 pl-0">ลงชื่อ</v-subheader>
-                    <v-text-field></v-text-field>
+                    <v-text-field v-model="person_pay"></v-text-field>
                     <v-subheader class="px-0">ผู้จ่ายเงิน</v-subheader>
                   </v-col>
                 </v-col>
@@ -578,8 +593,7 @@
                 <v-col class="d-flex px-0">
                   <v-col class="px-2 d-flex align-center">
                     <v-subheader class="pr-2 pl-0">ลงชื่อ</v-subheader>
-
-                    <v-text-field></v-text-field>
+                    <v-text-field v-model="person_receive"></v-text-field>
                     <v-subheader class="px-0">ผู้รับเงิน</v-subheader>
                   </v-col>
                 </v-col>
@@ -754,15 +768,20 @@
           <!--  -->
         </div>
       </v-row>
+      <div>
+        <v-btn type="submit" value="Submit" class="button-pr btn-send"
+          >ส่งข้อมูล</v-btn
+        >
+      </div>
     </v-form>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
-      valid: false,
       firstname_account: '',
       firstname_test: '',
       modal_purchase: false,
@@ -770,78 +789,147 @@ export default {
       modal_time_purchase: false,
       time_purchase: null,
       radio_purchase: null,
-      date_purchase: new Date(
-        Date.now() - new Date().getTimezoneOffset() * 60000
-      )
-        .toISOString()
-        .substr(0, 10),
-      date_purchase_end: new Date(
-        Date.now() - new Date().getTimezoneOffset() * 60000
-      )
-        .toISOString()
-        .substr(0, 10),
-      //
+      date_purchase: '',
+      date_purchase_end: '',
+      // name api
+      purchase_sing: '',
+      purchase_date: '',
+      purchase_txt: '',
+      //--------------------------
       modal_manage: false,
       modal_manage_end: false,
       modal_time_manage: false,
       time_manage: null,
       radio_manage: null,
-      date_manage: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-        .toISOString()
-        .substr(0, 10),
-      date_manage_end: new Date(
-        Date.now() - new Date().getTimezoneOffset() * 60000
-      )
-        .toISOString()
-        .substr(0, 10),
-      //
+      date_manage: '',
+      date_manage_end: '',
+      // name api
+      manage_sing: '',
+      manage_date: '',
+      manage_txt: '',
+      //---------------------------
       radio_account: null,
       modal_account: false,
-      date_account: new Date(
-        Date.now() - new Date().getTimezoneOffset() * 60000
-      )
-        .toISOString()
-        .substr(0, 10),
-      //
+      date_account: '',
+
       modal_account_day: false,
       modal_time_account: false,
       time_account: null,
       radio_account: null,
-      date_account_day: new Date(
-        Date.now() - new Date().getTimezoneOffset() * 60000
-      )
-        .toISOString()
-        .substr(0, 10),
-      //
+      date_account_day: '',
+
       modal_account_day2: false,
       modal_time_account2: false,
       time_account2: null,
-      date_account_day2: new Date(
-        Date.now() - new Date().getTimezoneOffset() * 60000
-      )
-        .toISOString()
-        .substr(0, 10),
-      //
+      date_account_day2: '',
+      //---------------------------
       modal_receive: false,
       modal_receive_end: false,
       modal_time_receive: false,
       time_receive: null,
       radio_receive: null,
-      date_receive: new Date(
-        Date.now() - new Date().getTimezoneOffset() * 60000
-      )
-        .toISOString()
-        .substr(0, 10),
-      date_receive_end: new Date(
-        Date.now() - new Date().getTimezoneOffset() * 60000
-      )
-        .toISOString()
-        .substr(0, 10),
+      date_receive: '',
+      date_receive_end: '',
       //
       items: ['เงินสด', 'บัตรเครดิต'],
       items2: ['กรุงเทพ', 'กรุงไทย', 'กสิกร'],
       date: null,
+      account_payment: '',
+      person_receive: '',
+      total_money: '',
+      total_moneytext: '',
+      note: '',
+      person_pay: '',
+      total_money: '',
     }
+  },
+
+  methods: {
+    PostPageThree() {
+      let date_false = ''
+      if (this.radio_purchase == 'true') {
+        this.purchase_txt = ''
+        console.log('true_radio_purchase')
+      }
+      if (this.radio_purchase == 'false') {
+        this.date_purchase = ''
+        this.time_purchase = ''
+        console.log('false_radio_purchase')
+      }
+      if (this.radio_manage == 'true') {
+        this.manage_txt = ''
+        console.log('true_radio_manage')
+      }
+      if (this.radio_manage == 'false') {
+        this.date_manage = ''
+        this.time_manage = ''
+        console.log('false_radio_manage')
+      }
+      this.senddate()
+    },
+    senddate() {
+      axios.post('http://localhost:5000/bugetthrees/add', {
+        purchase_radio: [
+          {
+            purchase_id: this.radio_purchase,
+            purchase_date: this.date_purchase,
+            purchase_time: this.time_purchase,
+            purchase_txt: this.purchase_txt,
+          },
+        ],
+        purchase_sing: this.purchase_sing,
+        purchase_date: this.date_purchase_end,
+        //
+        manage_radio: [
+          {
+            manage_id: this.radio_manage,
+            manage_date: this.date_purchase,
+            manage_time: this.time_purchase,
+            manage_txt: this.manage_txt,
+          },
+        ],
+        manage_sing: this.manage_sing,
+        manage_date: this.date_manage_end,
+        //
+        account_radio: [
+          {
+            radio_id: 'true',
+            cashier: 'null',
+            numberaccount: '11:11',
+            confirm_account: 'null',
+            cashier_date: '1/1/1111',
+            bangkok: 'null',
+            number_bangkok: 'null',
+            name_bangkok: 'null',
+          },
+        ],
+        account_payment: this.account_payment,
+        total_money: this.total_money,
+        total_moneytext: this.total_moneytext,
+        note: this.note,
+        date_pay: this.date_account_day,
+        time_pay: this.time_account,
+        person_pay: this.person_pay,
+        person_receive: this.person_receive,
+        approve_day: this.date_account_day2,
+        approve_time: this.time_account2,
+        //
+        slip_radio: [
+          {
+            radio_id: 'true',
+            total: 'tatal_slip',
+            txt_total: 'txt_slip',
+          },
+        ],
+        slip_date: '1/1/1111',
+        slipperson_pay: 'pay_slip',
+        slipperson_receive1: 'receive_slip',
+        slipapprove_day: 'asas',
+        slipapprove_time: 'dddd',
+        slipperson_receive2: 'receive_slip',
+      })
+      this.$refs.form.reset()
+    },
   },
 }
 </script>

@@ -238,15 +238,6 @@ export default {
       firstname2: '',
       firstname3: '',
       lastname: '',
-      nameRules: [
-        (v) => !!v || 'Name is required',
-        (v) => v.length <= 10 || 'Name must be less than 10 characters',
-      ],
-      email: '',
-      emailRules: [
-        (v) => !!v || 'E-mail is required',
-        (v) => /.+@.+/.test(v) || 'E-mail must be valid',
-      ],
       date_one: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
