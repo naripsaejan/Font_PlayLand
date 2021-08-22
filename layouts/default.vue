@@ -71,9 +71,9 @@
 </template>
 
 <script>
-// import { mapState } from 'vuex'
+// const { apiUrl } = process.env
 // async function getposts() {
-//   let res = await fetch('http://localhost:5000/posts')
+//   let res = await fetch(`${apiUrl}/bugetones`)
 //   console.log(res)
 //   let posts = await res.json()
 //   return posts
@@ -124,9 +124,9 @@ export default {
       }
     },
   },
-  mounted() {
-    console.log('test', this.$nuxt.$store.state.history)
-  },
+  // mounted() {
+  //   console.log('test', this.$nuxt.$store.state.history)
+  // },
   // computed: {
   //   ...mapState({
   //     history: (state) => state.history.order,
