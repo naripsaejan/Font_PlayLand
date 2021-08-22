@@ -12,7 +12,8 @@
             outlined
             shaped
           >
-            <BudgetPageOne />
+            <!-- <BudgetPageOne /> -->
+            <BudgetPageTree />
           </v-card>
           <v-btn color="primary" @click="e6 = 2"> หน้าถัดไป </v-btn>
         </v-stepper-content>
