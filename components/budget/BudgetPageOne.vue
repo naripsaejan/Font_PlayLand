@@ -369,7 +369,7 @@ export default {
   },
   methods: {
     addGin() {
-      axios.post('http://localhost:5000/bugets/add', {
+      axios.post('http://localhost:5000/bugetones/add', {
         id_file: this.id_file,
         date_file: this.date_file,
         presenter: this.presenter,
@@ -396,9 +396,4 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import 'assets/budget.scss';
-.btn-send {
-  position: absolute;
-  right: 0;
-  bottom: -84px;
-}
 </style>
