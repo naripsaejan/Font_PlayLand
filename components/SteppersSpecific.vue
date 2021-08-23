@@ -4,8 +4,14 @@
       <v-stepper v-model="e6" vertical>
         <v-stepper-step :complete="e6 > 1" step="1"> page 1 </v-stepper-step>
 
-        <v-stepper-content step="1">
-          <v-card class="mb-12" elevation="2" outlined shaped>
+        <v-stepper-content step="1" class="d-flex justify-center">
+          <v-card
+            class="mb-12"
+            elevation="2"
+            style="max-width: 1000px"
+            outlined
+            shaped
+          >
             <SpecificPageOne />
           </v-card>
           <v-btn color="primary" @click="e6 = 2"> ยืนยัน </v-btn>
@@ -27,10 +33,12 @@
 </template>
 
 <script>
-import SpecificPageOne from '~/components/specific/SpecificPageOne.vue'
-import SpecificCostDetails from '~/components/specific/SpecificCostDetails.vue'
 export default {
-  components: { SpecificPageOne, SpecificCostDetails },
+  components: {
+    SpecificPageOne: () => import('~/components/specific/SpecificPageOne.vue'),
+    SpecificCostDetails: () =>
+      import('~/components/specific/SpecificCostDetails.vue'),
+  },
   data() {
     return {
       e6: 1,

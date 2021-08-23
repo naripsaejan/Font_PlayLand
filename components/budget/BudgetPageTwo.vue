@@ -1,24 +1,21 @@
 <template>
   <div>
-    <v-form v-model="valid">
+    <v-form @submit.prevent="PostPageTwo">
       <v-row class="mt-3" style="max-width: 1000px">
         <p class="d-flex justify-center mt-2">รายละเอียดค่าใช้จ่าย</p>
         <div class="pb-2">
           <v-col class="d-grid justify-end">
-            <v-text-field
-              v-model="firstname1"
-              label="เลขที่เอกสาร"
-            ></v-text-field>
+            <v-text-field v-model="id_file" label="เลขที่เอกสาร"></v-text-field>
             <v-dialog
               ref="dialog"
               v-model="modal"
-              :return-value.sync="date_one"
+              :return-value.sync="date_file"
               persistent
               width="290px"
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
-                  v-model="date_one"
+                  v-model="date_file"
                   label="วันที่"
                   prepend-inner-icon="mdi-calendar"
                   readonly
@@ -26,7 +23,7 @@
                   v-on="on"
                 ></v-text-field>
               </template>
-              <v-date-picker v-model="date_one" scrollable>
+              <v-date-picker v-model="date_file" scrollable>
                 <v-spacer></v-spacer>
                 <v-btn text color="primary" @click="modal = false">
                   Cancel
@@ -34,7 +31,7 @@
                 <v-btn
                   text
                   color="primary"
-                  @click="$refs.dialog.save(date_one)"
+                  @click="$refs.dialog.save(date_file)"
                 >
                   OK
                 </v-btn>
@@ -44,10 +41,10 @@
           <!--  -->
           <div class="d-flex">
             <v-col>
-              <v-text-field v-model="firstname2" label="ผู้เสนอ"></v-text-field>
+              <v-text-field v-model="presenter" label="ผู้เสนอ"></v-text-field>
             </v-col>
             <v-col
-              ><v-text-field v-model="firstname3" label="สังกัด"></v-text-field
+              ><v-text-field v-model="affiliation" label="สังกัด"></v-text-field
             ></v-col>
           </div>
           <!--  -->
@@ -55,7 +52,7 @@
             <v-data-table
               :headers="headers"
               :items="desserts"
-              sort-by="calories"
+              sort-by="name"
               class="elevation-1"
             >
               <template v-slot:top>
@@ -168,45 +165,58 @@
               <v-subheader cols="2" class="d-flex align-end pl-0"
                 >ตัวอักษร</v-subheader
               >
-              <v-text-field cols="10" prefix="(" suffix=")บาท"></v-text-field>
+              <v-text-field
+                v-model="sum_txt_total"
+                cols="10"
+                prefix="("
+                suffix=")บาท"
+              ></v-text-field>
             </v-col>
             <v-col cols="4" class="d-grid pb-0">
-              <v-text-field v-model="firstname" label="ราคารวม"></v-text-field>
-              <v-text-field v-model="firstname" label="ส่วนลด"></v-text-field>
+              <v-text-field v-model="total" label="ราคารวม"></v-text-field>
+              <v-text-field v-model="discount" label="ส่วนลด"></v-text-field>
               <v-text-field
-                v-model="firstname"
+                v-model="discount_price"
                 label="ราคาหลังหักส่วนลด"
               ></v-text-field>
-              <v-text-field v-model="firstname" label="VAT 7%"></v-text-field>
+              <v-text-field v-model="vat" label="VAT 7%"></v-text-field>
               <v-text-field
-                v-model="firstname"
+                v-model="sum_total"
                 label="รวทเป็นเงินทั้งสิ้น"
               ></v-text-field>
             </v-col>
           </div>
           <!--  -->
           <v-col class="pt-0">
-            <v-text-field v-model="firstname" label="หมายเหตุ"></v-text-field>
+            <v-text-field v-model="note" label="หมายเหตุ"></v-text-field>
             <v-text-field
-              v-model="firstname"
+              v-model="purchasing"
               label="วิธีการจัดซื้อ"
             ></v-text-field>
             <v-text-field
-              v-model="firstname"
+              v-model="condition"
               label="เงื่อนไขการชำระเงิน"
             ></v-text-field>
           </v-col>
           <!--  -->
           <div class="d-flex">
             <v-col>
-              <v-select :items="items" label="วิธีการชำระเงิน"></v-select>
+              <v-select
+                :items="items"
+                v-model="payment"
+                label="วิธีการชำระเงิน"
+              ></v-select>
             </v-col>
             <v-col>
-              <v-select :items="items2" label="ธนาคาร"></v-select>
+              <v-select
+                :items="items2"
+                v-model="bangkok"
+                label="ธนาคาร"
+              ></v-select>
             </v-col>
             <v-col>
               <v-text-field
-                v-model="firstname"
+                v-model="number_bangkok"
                 label="เลขที่บัญชี"
               ></v-text-field>
             </v-col>
@@ -215,32 +225,47 @@
           <div class="d-flex justify-end px-0">
             <v-col cols="4">
               <v-text-field
-                v-model="firstname"
+                v-model="name_bangkok"
                 label="ชื่อบัญชี"
               ></v-text-field>
             </v-col>
           </div>
         </div>
       </v-row>
+      <div>
+        <v-btn type="submit" value="Submit" class="button-pr btn-send"
+          >ส่งข้อมูล</v-btn
+        >
+      </div>
     </v-form>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
+      id_file: '',
+      date_file: '',
+      presenter: '',
+      affiliation: '',
+      sum_txt_total: '',
+      total: '',
+      number_bangkok: '',
+      name_bangkok: '',
+      bangkok: '',
+      payment: '',
+      condition: '',
+      purchasing: '',
+      note: '',
+      sum_total: '',
+      vat: '',
+      discount_price: '',
+      discount: '',
+      //form vue
       items: ['เงินสด', 'บัตรเครดิต', 'แคชเชียร์'],
       items2: ['กรุงเทพ', 'กรุงไทย', 'กสิกร'],
-      valid: false,
-      firstname: '',
-      firstname1: '',
-      firstname2: '',
-      firstname3: '',
-      lastname: '',
-      date_one: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-        .toISOString()
-        .substr(0, 10),
       modal: false,
       time: null,
       menu2: false,
@@ -249,33 +274,28 @@ export default {
       dialog: false,
       dialogDelete: false,
       headers: [
-        {
-          text: 'ลำดับ',
-          align: 'start',
-          sortable: false,
-          value: 'name',
-        },
-        { text: 'รายการ', value: 'calories' },
-        { text: 'จำนวน', value: 'fat' },
-        { text: 'หน่วย', value: 'carbs' },
-        { text: 'ราคาต่อหน่วย', value: 'protein' },
-        { text: 'รวมเป็นเงิน', value: 'actions', sortable: false },
+        { text: 'ลำดับ', value: 'id', sortable: false },
+        { text: 'รายการ', value: 'list', sortable: false },
+        { text: 'จำนวน', value: 'total', sortable: false },
+        { text: 'หน่วย', value: 'unit', sortable: false },
+        { text: 'ราคาต่อหน่วย', value: 'unit_price', sortable: false },
+        { text: 'action', value: 'actions', sortable: false },
       ],
       desserts: [],
       editedIndex: -1,
       editedItem: {
-        name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0,
+        id: '',
+        list: '',
+        total: '',
+        unit: '',
+        unit_price: '',
       },
       defaultItem: {
-        name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0,
+        id: '',
+        list: '',
+        total: '',
+        unit: '',
+        unit_price: '',
       },
     }
   },
@@ -302,20 +322,18 @@ export default {
     initialize() {
       this.desserts = [
         {
-          name: '001',
-          calories: 'ผัก',
-          fat: 2,
-          carbs: 24,
-          protein: 48,
-        },
-        {
-          name: '002',
-          calories: 'ขนม',
-          fat: 2,
-          carbs: 24,
-          protein: 48,
+          id: '001',
+          list: 'ผัก',
+          total: 2,
+          unit: 24,
+          unit_price: 48,
         },
       ]
+    },
+    test() {
+      debugger
+
+      console.log('test', this.desserts)
     },
 
     editItem(item) {
@@ -352,12 +370,48 @@ export default {
     },
 
     save() {
+      this.test()
+
       if (this.editedIndex > -1) {
         Object.assign(this.desserts[this.editedIndex], this.editedItem)
+        debugger
       } else {
         this.desserts.push(this.editedItem)
+        debugger
       }
+      debugger
+
       this.close()
+    },
+    PostPageTwo() {
+      axios.post('http://localhost:5000/bugettwos/add', {
+        id_file: this.id_file,
+        date_file: this.date_file,
+        presenter: this.presenter,
+        affiliation: this.affiliation,
+        // tabel_data: [
+        //   {
+        //     data_id: req.body.tabel_data[0].data_id,
+        //     data_list: req.body.tabel_data[0].data_list,
+        //     data_total: req.body.tabel_data[0].data_total,
+        //     data_unit: req.body.tabel_data[0].data_unit,
+        //     data_unit_price: req.body.tabel_data[0].data_unit_price,
+        //   }
+        // ]
+        total: this.total,
+        discount: this.discount,
+        discount_price: this.discount_price,
+        vat: this.vat,
+        sum_txt_total: this.sum_txt_total,
+        sum_total: this.sum_total,
+        note: this.note,
+        purchasing: this.purchasing,
+        condition: this.condition,
+        payment: this.payment,
+        bangkok: this.bangkok,
+        number_bangkok: this.number_bangkok,
+        name_bangkok: this.name_bangkok,
+      })
     },
   },
 }
