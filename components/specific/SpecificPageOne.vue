@@ -1,44 +1,56 @@
 <template>
   <div>
-    <v-form v-model="valid_specific">
+    <v-form @submit.prevent="adddate">
       <v-row class="mt-3" style="max-width: 1000px">
         <p class="d-flex justify-center mt-2">
           แบบสรุปยอดการใช้จ่ายทำการตลาดสำหรับเบิกงบประมาณ
         </p>
-        <div id="paragraphOne">
+        <!-- <div id="paragraphOne">
           <v-col class="d-grid justify-end">
-            <v-text-field label="เลขที่เอกสาร"></v-text-field>
+            <v-text-field v-model="id_file" label="เลขที่เอกสาร"></v-text-field>
             <v-dialog
-              ref="dialog"
-              v-model="modal"
-              :return-value.sync="date"
+              ref="dialog_file"
+              v-model="modal_file"
+              :return-value.sync="date_file"
               persistent
               width="290px"
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
-                  v-model="date"
+                  v-model="date_file"
                   label="วันที่"
-                  prepend-iner-icon="mdi-calendar"
+                  prepend-inner-icon="mdi-calendar"
                   readonly
                   v-bind="attrs"
                   v-on="on"
                 ></v-text-field>
               </template>
-              <v-date-picker v-model="date" scrollable>
+              <v-date-picker v-model="date_file" scrollable>
                 <v-spacer></v-spacer>
-                <v-btn text color="primary" @click="modal = false">
+                <v-btn text color="primary" @click="modal_file = false">
                   Cancel
                 </v-btn>
-                <v-btn text color="primary" @click="$refs.dialog.save(date)">
+                <v-btn
+                  text
+                  color="primary"
+                  @click="$refs.dialog_file.save(date_file)"
+                >
                   OK
                 </v-btn>
               </v-date-picker>
             </v-dialog>
           </v-col>
           <v-col class="d-flex px-0">
-            <v-text-field class="col" label="ผู้เสนอ"></v-text-field>
-            <v-text-field class="col" label="สังกัด"></v-text-field>
+            <v-text-field
+              v-model="presenter"
+              class="col"
+              label="ผู้เสนอ"
+            ></v-text-field>
+            <v-text-field
+              v-model="affiliation"
+              class="col"
+              label="สังกัด"
+            ></v-text-field>
           </v-col>
           <v-col class="d-flex px-0 align-center">
             <v-subheader class="col-auto"
@@ -46,30 +58,34 @@
             >
             <v-col>
               <v-dialog
-                ref="dialog_end"
-                v-model="modal_end"
-                :return-value.sync="date"
+                ref="clarify_information"
+                v-model="modal_clarify_information"
+                :return-value.sync="clarify_information"
                 persistent
                 width="290px"
               >
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
-                    v-model="date"
+                    v-model="clarify_information"
                     prepend-inner-icon="mdi-calendar"
                     readonly
                     v-bind="attrs"
                     v-on="on"
                   ></v-text-field>
                 </template>
-                <v-date-picker v-model="date" scrollable>
+                <v-date-picker v-model="clarify_information" scrollable>
                   <v-spacer></v-spacer>
-                  <v-btn text color="primary" @click="modal_end = false">
+                  <v-btn
+                    text
+                    color="primary"
+                    @click="modal_clarify_information = false"
+                  >
                     Cancel
                   </v-btn>
                   <v-btn
                     text
                     color="primary"
-                    @click="$refs.dialog_end.save(date)"
+                    @click="$refs.clarify_information.save(clarify_information)"
                   >
                     OK
                   </v-btn>
@@ -79,12 +95,14 @@
           </v-col>
           <v-col class="d-flex px-0">
             <v-text-field
+              v-model="total"
               class="col"
               label="จำนวนทั้งสิ้น"
               prefix=""
               suffix="บาท"
             ></v-text-field>
             <v-text-field
+              v-model="txt_total"
               class="col"
               label="ตัวอักษร"
               prefix="("
@@ -105,7 +123,7 @@
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
                     v-model="date_start"
-                    label="Picker in dialog"
+                    label="ตั้งแต่วันที่"
                     prepend-inner-icon="mdi-calendar"
                     readonly
                     v-bind="attrs"
@@ -130,31 +148,31 @@
             <v-col>
               <v-dialog
                 class="col-5"
-                ref="dialog_end"
-                v-model="modal_end"
-                :return-value.sync="date"
+                ref="dialog_stop"
+                v-model="modal_stop"
+                :return-value.sync="date_stop"
                 persistent
                 width="290px"
               >
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
-                    v-model="date"
-                    label="Picker in dialog"
+                    v-model="date_stop"
+                    label="ถึงวันที่"
                     prepend-inner-icon="mdi-calendar"
                     readonly
                     v-bind="attrs"
                     v-on="on"
                   ></v-text-field>
                 </template>
-                <v-date-picker v-model="date" scrollable>
+                <v-date-picker v-model="date_stop" scrollable>
                   <v-spacer></v-spacer>
-                  <v-btn text color="primary" @click="modal_end = false">
+                  <v-btn text color="primary" @click="modal_stop = false">
                     Cancel
                   </v-btn>
                   <v-btn
                     text
                     color="primary"
-                    @click="$refs.dialog_end.save(date)"
+                    @click="$refs.dialog_stop.save(date_stop)"
                   >
                     OK
                   </v-btn>
@@ -168,6 +186,7 @@
             >
             <v-col>
               <v-text-field
+                v-model="sum_total"
                 label="รวมเป็นเงินทั้งสิ้น"
                 suffix="บาท"
               ></v-text-field>
@@ -178,7 +197,11 @@
               <v-subheader>ตัวอักษร</v-subheader>
             </v-col>
             <v-col cols="6">
-              <v-text-field prefix="(" suffix=")บาท"></v-text-field>
+              <v-text-field
+                v-model="sum_total_txt"
+                prefix="("
+                suffix=")บาท"
+              ></v-text-field>
             </v-col>
           </div>
 
@@ -188,15 +211,15 @@
             >
             <v-col>
               <v-dialog
-                ref="dialog_two"
-                v-model="modal_two"
-                :return-value.sync="date_in"
+                ref="dialog_offer_date"
+                v-model="modal_offer_date"
+                :return-value.sync="offer_date"
                 persistent
                 width="290px"
               >
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
-                    v-model="date_in"
+                    v-model="offer_date"
                     label="วันที่"
                     prepend-inner-icon="mdi-calendar"
                     readonly
@@ -204,15 +227,15 @@
                     v-on="on"
                   ></v-text-field>
                 </template>
-                <v-date-picker v-model="date_in" scrollable>
+                <v-date-picker v-model="offer_date" scrollable>
                   <v-spacer></v-spacer>
-                  <v-btn text color="primary" @click="modal_two = false">
+                  <v-btn text color="primary" @click="modal_offer_date = false">
                     Cancel
                   </v-btn>
                   <v-btn
                     text
                     color="primary"
-                    @click="$refs.dialog_two.save(date_in)"
+                    @click="$refs.dialog_offer_date.save(offer_date)"
                   >
                     OK
                   </v-btn>
@@ -221,15 +244,15 @@
             >
             <v-col>
               <v-dialog
-                ref="dialog"
-                v-model="modal"
-                :return-value.sync="time"
+                ref="dialog_offer_time"
+                v-model="modal_offer_time"
+                :return-value.sync="offer_time"
                 persistent
                 width="290px"
               >
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
-                    v-model="time_in"
+                    v-model="offer_time"
                     label="เวลา"
                     prepend-inner-icon="mdi-clock-time-four-outline"
                     readonly
@@ -238,19 +261,19 @@
                   ></v-text-field>
                 </template>
                 <v-time-picker
-                  v-if="modal"
-                  v-model="time_in"
+                  v-if="modal_offer_time"
+                  v-model="offer_time"
                   format="24hr"
                   full-width
                 >
                   <v-spacer></v-spacer>
-                  <v-btn text color="primary" @click="modal = false">
+                  <v-btn text color="primary" @click="modal_offer_time = false">
                     Cancel
                   </v-btn>
                   <v-btn
                     text
                     color="primary"
-                    @click="$refs.dialog.save(time_in)"
+                    @click="$refs.dialog_offer_time.save(offer_time)"
                   >
                     OK
                   </v-btn>
@@ -286,8 +309,8 @@
             <div class="d-flex justify-center align-center py-0">
               <v-col cols="10" class="px-0">
                 <v-dialog
-                  ref="dialog_tree"
-                  v-model="modal_tree"
+                  ref="dialog_date_presenter"
+                  v-model="modal_date_presenter"
                   :return-value.sync="date_presenter"
                   persistent
                   width="290px"
@@ -305,13 +328,17 @@
                   </template>
                   <v-date-picker v-model="date_presenter" scrollable>
                     <v-spacer></v-spacer>
-                    <v-btn text color="primary" @click="modal_tree = false">
+                    <v-btn
+                      text
+                      color="primary"
+                      @click="modal_date_presenter = false"
+                    >
                       Cancel
                     </v-btn>
                     <v-btn
                       text
                       color="primary"
-                      @click="$refs.dialog_tree.save(date_presenter)"
+                      @click="$refs.dialog_date_presenter.save(date_presenter)"
                     >
                       OK
                     </v-btn>
@@ -320,42 +347,42 @@
               </v-col>
             </div>
           </div>
-        </div>
+        </div> -->
         <hr />
         <p class="mt-2">ฝ่ายบัญชีตรวจสอบเอกสารแนบท้ายแล้วพิจารณาว่า</p>
         <div id="paragraphTwo">
           <div class="d-flex">
             <v-col class="d-flex align-center">
-              <v-radio-group v-model="radio_purchase">
+              <v-radio-group v-model="file_check">
                 <v-radio label="ผ่าน " value="true" class="pr-4"></v-radio>
               </v-radio-group>
               <v-subheader>เอกสารถูกต้องครบถ้วนทั้งหมด</v-subheader>
               <v-dialog
-                ref="dialog_purchase"
-                v-model="modal_purchase"
-                :return-value.sync="date"
+                ref="dialog_file_date"
+                v-model="modal_file_date"
+                :return-value.sync="file_date"
                 persistent
                 width="290px"
               >
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
-                    v-model="date_purchase"
+                    v-model="file_date"
                     prepend-icon="mdi-calendar"
                     readonly
                     v-bind="attrs"
                     v-on="on"
-                    :disabled="radio_purchase != 'true'"
+                    :disabled="file_check != 'true'"
                   ></v-text-field>
                 </template>
-                <v-date-picker v-model="date_purchase" scrollable>
+                <v-date-picker v-model="file_date" scrollable>
                   <v-spacer></v-spacer>
-                  <v-btn text color="primary" @click="modal_purchase = false">
+                  <v-btn text color="primary" @click="modal_file_date = false">
                     Cancel
                   </v-btn>
                   <v-btn
                     text
                     color="primary"
-                    @click="$refs.dialog_purchase.save(date_purchase)"
+                    @click="$refs.dialog_file_date.save(file_date)"
                   >
                     OK
                   </v-btn>
@@ -365,25 +392,25 @@
           </div>
           <div class="d-flex">
             <v-col cols="" class="d-flex align-center">
-              <v-radio-group v-model="radio_purchase">
+              <v-radio-group v-model="file_check">
                 <v-radio label="ไม่ผ่าน" value="false"></v-radio>
               </v-radio-group>
               <v-subheader
                 >แก้ไขเปลี่ยนแปลงจำนวนเงินทั้งสิ้นจากเดิมเป็น</v-subheader
               >
               <v-text-field
-                :disabled="radio_purchase != 'false'"
-                v-model="purchase_txt"
+                class="px-2"
+                :disabled="file_check != 'false'"
+                v-model="file_editfile"
                 suffix="บาท"
               ></v-text-field>
-            </v-col>
-          </div>
-          <div class="d-flex px-0">
-            <v-col cols="2">
-              <v-subheader>ตัวอักษร</v-subheader>
-            </v-col>
-            <v-col cols="10">
-              <v-text-field prefix="(" suffix=")บาท"></v-text-field>
+              <v-text-field
+                v-model="file_txt_total"
+                :disabled="file_check != 'false'"
+                label="ตัวอักษร"
+                prefix="("
+                suffix=")บาท"
+              ></v-text-field>
             </v-col>
           </div>
 
@@ -392,37 +419,41 @@
               <v-subheader>หมายเหตุ</v-subheader>
             </v-col>
             <v-col cols="10">
-              <v-text-field></v-text-field>
+              <v-text-field v-model="note"></v-text-field>
             </v-col>
           </div>
           <div class="d-flex justify-center">
             <v-col cols="4">
               <v-dialog
-                ref="dialog_end"
-                v-model="modal_end"
-                :return-value.sync="date"
+                ref="dialog_date_inspector"
+                v-model="modal_date_inspector"
+                :return-value.sync="date_inspector"
                 persistent
                 width="290px"
               >
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
-                    v-model="date"
-                    label="อนุมัติในระบบวันที่"
+                    v-model="date_inspector"
+                    label="อนุมัติในระบบวันที่2"
                     prepend-icon="mdi-calendar"
                     readonly
                     v-bind="attrs"
                     v-on="on"
                   ></v-text-field>
                 </template>
-                <v-date-picker v-model="date" scrollable>
+                <v-date-picker v-model="date_inspector" scrollable>
                   <v-spacer></v-spacer>
-                  <v-btn text color="primary" @click="modal_end = false">
+                  <v-btn
+                    text
+                    color="primary"
+                    @click="modal_date_inspector = false"
+                  >
                     Cancel
                   </v-btn>
                   <v-btn
                     text
                     color="primary"
-                    @click="$refs.dialog_end.save(date)"
+                    @click="$refs.dialog_date_inspector.save(date_inspector)"
                   >
                     OK
                   </v-btn>
@@ -433,7 +464,7 @@
               <v-subheader class="px-0">ลงชื่อ</v-subheader>
             </v-col>
             <v-col cols="4" class="px-2">
-              <v-text-field></v-text-field>
+              <v-text-field v-model="sing_inspector"></v-text-field>
             </v-col>
             <v-col cols="1" class="d-flex align-center px-0">
               <v-subheader class="px-0">ผู้ตรวจสอบ</v-subheader>
@@ -575,14 +606,14 @@
                     <v-dialog
                       ref="dialog_tree"
                       v-model="modal_tree"
-                      :return-value.sync="date_presenter"
+                      :return-value.sync="date_presenter1"
                       persistent
                       width="290px"
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
                           class="pt-0 px-6"
-                          v-model="date_presenter"
+                          v-model="date_presenter1"
                           label="อนุมัติในระบบวันที่"
                           prepend-inner-icon="mdi-calendar"
                           readonly
@@ -590,7 +621,7 @@
                           v-on="on"
                         ></v-text-field>
                       </template>
-                      <v-date-picker v-model="date_presenter" scrollable>
+                      <v-date-picker v-model="date_presenter1" scrollable>
                         <v-spacer></v-spacer>
                         <v-btn text color="primary" @click="modal_tree = false">
                           Cancel
@@ -598,7 +629,7 @@
                         <v-btn
                           text
                           color="primary"
-                          @click="$refs.dialog_tree.save(date_presenter)"
+                          @click="$refs.dialog_tree.save(date_presenter1)"
                         >
                           OK
                         </v-btn>
@@ -626,37 +657,112 @@
           </div>
         </div>
       </v-row>
+      <div>
+        <v-btn type="submit" value="Submit" class="button-pr btn-send"
+          >ส่งข้อมูล</v-btn
+        >
+      </div>
     </v-form>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data: () => ({
     valid_specific: false,
     firstname: '',
     lastname: '',
-    nameRules: [
-      (v) => !!v || 'Name is required',
-      (v) => v.length <= 10 || 'Name must be less than 10 characters',
-    ],
-    email: '',
-    emailRules: [
-      (v) => !!v || 'E-mail is required',
-      (v) => /.+@.+/.test(v) || 'E-mail must be valid',
-    ],
     date: '',
-    date_start: '',
-    date_end: '',
     modal: false,
-    modal_start: false,
-    modal_end: false,
     time: null,
     menu2: false,
     modal2: false,
     radio1: null,
     items2: ['a', 'b', 'c'],
+    //
+    id_file: '',
+    date_file: '',
+    modal_file: false,
+    presenter: '',
+    affiliation: '',
+    clarify_information: '',
+    modal_clarify_information: false,
+    total: '',
+    txt_total: '',
+    date_start: '',
+    modal_start: false,
+    date_stop: '',
+    modal_stop: false,
+    sum_total: '',
+    sum_total_txt: '',
+    offer_date: '',
+    modal_offer_date: '',
+    offer_time: '',
+    modal_offer_time: '',
+    sing_presenter: '',
+    confirm_presenter: '',
+    date_presenter: '',
+    modal_date_presenter: '',
+    //
+    file_check: '',
+    file_date: '',
+    modal_file_date: '',
+    file_editfile: '',
+    file_txt_total: '',
+    note: '',
+    sing_inspector: '',
+    model_date_inspector: false,
+    date_inspector: '',
   }),
+  methods: {
+    check_radio() {
+      if (this.file_check == 'true') {
+        this.file_editfile = ''
+        this.file_txt_total = ''
+      }
+      if (this.file_check == 'false') {
+        this.file_date = ''
+      }
+    },
+    adddate() {
+      this.check_radio()
+      axios.post('http://localhost:5000/specificones/add', {
+        // id_file: this.id_file,
+        // date_file: this.date_file,
+        // presenter: this.presenter,
+        // affiliation: this.affiliation,
+        // clarify_information: this.clarify_information,
+        // total: this.total,
+        // txt_total: this.txt_total,
+        // date_start: this.date_start,
+        // date_stop: this.date_stop,
+        // sum_total: this.sum_total,
+        // sum_total_txt: this.sum_total_txt,
+        // offer_date: this.offer_date,
+        // offer_time: this.offer_time,
+        // sing_presenter: this.sing_presenter,
+        // confirm_presenter: this.confirm_presenter,
+        // date_presenter: this.date_presenter,
+        examine: [
+          {
+            examine_file: [
+              {
+                file_check: this.file_check,
+                file_date: this.file_date,
+                file_editfile: this.file_editfile,
+                file_txt_total: this.file_txt_total,
+              },
+            ],
+            note: this.note,
+            sing_inspector: this.sing_inspector,
+            date_inspector: this.date_inspector,
+          },
+        ],
+      })
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
