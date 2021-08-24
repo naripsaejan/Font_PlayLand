@@ -618,7 +618,7 @@
                     <v-text-field v-model="sing_presenter"></v-text-field
                   ></v-col>
                   <v-col cols="auto" class="py-0">
-                    <v-subheader class="px-0">ผู้เสนอ</v-subheader></v-col
+                    <v-subheader class="px-0">ผู้รับเงิน</v-subheader></v-col
                   >
                 </v-col>
               </div>
