@@ -5,7 +5,7 @@
         <p class="d-flex justify-center mt-2">
           แบบสรุปยอดการใช้จ่ายทำการตลาดสำหรับเบิกงบประมาณ
         </p>
-        <!-- <div id="paragraphOne">
+        <div id="paragraphOne">
           <v-col class="d-grid justify-end">
             <v-text-field v-model="id_file" label="เลขที่เอกสาร"></v-text-field>
             <v-dialog
@@ -347,7 +347,7 @@
               </v-col>
             </div>
           </div>
-        </div> -->
+        </div>
         <hr />
         <p class="mt-2">ฝ่ายบัญชีตรวจสอบเอกสารแนบท้ายแล้วพิจารณาว่า</p>
         <div id="paragraphTwo">
@@ -476,12 +476,14 @@
           <div class="d-flex px-0">
             <v-col cols="6">
               <v-text-field
+                v-model="receive_money"
                 label="ได้รับเงินจำนวนทั้งสิ้น"
                 suffix="บาท"
               ></v-text-field>
             </v-col>
             <v-col cols="6">
               <v-text-field
+                v-model="receive_money_txt"
                 label="ตัวอักษร"
                 prefix="("
                 suffix="บาท )"
@@ -489,24 +491,30 @@
             </v-col>
           </div>
           <v-col class="d-felx align-center px-0">
-            <v-radio-group v-model="radio_receive">
-              <v-col><v-radio value="เงินสด" label="เงินสด"> </v-radio></v-col>
+            <v-radio-group v-model="money_check">
+              <v-col><v-radio value="true" label="เงินสด"> </v-radio></v-col>
 
               <v-col class="d-flex align-center pr-0">
-                <v-radio value="โอนเงิน" label="โอนเงิน"> </v-radio>
-
+                <v-radio value="false" label="โอนเงิน"> </v-radio>
                 <v-col>
-                  <v-select :items="items2" label="ธนาคาร"></v-select>
+                  <v-select
+                    :disabled="money_check != 'false'"
+                    v-model="money_bankok"
+                    :items="items2"
+                    label="ธนาคาร"
+                  ></v-select>
                 </v-col>
                 <v-col>
                   <v-text-field
-                    v-model="firstname"
+                    :disabled="money_check != 'false'"
+                    v-model="name_bankok"
                     label="ชื่อบัญชี"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="3">
                   <v-text-field
-                    v-model="firstname"
+                    :disabled="money_check != 'false'"
+                    v-model="number_bankok"
                     label="เลขที่บัญชี"
                   ></v-text-field>
                 </v-col>
@@ -515,20 +523,20 @@
           </v-col>
           <v-col class="d-flex align-center">
             <v-subheader cols="" class="pl-0">หมายเหตุ</v-subheader>
-            <v-text-field cols=""></v-text-field>
+            <v-text-field cols="" v-model="money_note"></v-text-field>
           </v-col>
           <div class="d-flex pl-10">
             <v-col cols="3">
               <v-dialog
-                ref="dialog_end"
-                v-model="modal_end"
-                :return-value.sync="date"
+                ref="dialog_money_day"
+                v-model="modal_money_day"
+                :return-value.sync="money_day"
                 persistent
                 width="290px"
               >
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
-                    v-model="date"
+                    v-model="money_day"
                     prepend-icon="mdi-calendar"
                     label="วันที่"
                     readonly
@@ -536,15 +544,15 @@
                     v-on="on"
                   ></v-text-field>
                 </template>
-                <v-date-picker v-model="date" scrollable>
+                <v-date-picker v-model="money_day" scrollable>
                   <v-spacer></v-spacer>
-                  <v-btn text color="primary" @click="modal_end = false">
+                  <v-btn text color="primary" @click="modal_money_day = false">
                     Cancel
                   </v-btn>
                   <v-btn
                     text
                     color="primary"
-                    @click="$refs.dialog_end.save(date)"
+                    @click="$refs.dialog_money_day.save(money_day)"
                   >
                     OK
                   </v-btn>
@@ -554,15 +562,15 @@
 
             <v-col cols="3">
               <v-dialog
-                ref="dialog"
-                v-model="modal2"
-                :return-value.sync="time"
+                ref="dialog_money_time"
+                v-model="modal_money_time"
+                :return-value.sync="money_time"
                 persistent
                 width="290px"
               >
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
-                    v-model="time"
+                    v-model="money_time"
                     label="เวลา"
                     prepend-icon="mdi-clock-time-four-outline"
                     readonly
@@ -571,16 +579,20 @@
                   ></v-text-field>
                 </template>
                 <v-time-picker
-                  v-if="modal2"
-                  v-model="time"
+                  v-if="modal_money_time"
+                  v-model="money_time"
                   format="24hr"
                   full-width
                 >
                   <v-spacer></v-spacer>
-                  <v-btn text color="primary" @click="modal2 = false">
+                  <v-btn text color="primary" @click="modal_money_time = false">
                     Cancel
                   </v-btn>
-                  <v-btn text color="primary" @click="$refs.dialog.save(time)">
+                  <v-btn
+                    text
+                    color="primary"
+                    @click="$refs.dialog_money_time.save(money_time)"
+                  >
                     OK
                   </v-btn>
                 </v-time-picker>
@@ -595,7 +607,7 @@
                     <v-subheader class="px-0">ลงชื่อ</v-subheader>
                   </v-col>
                   <v-col cols="10" class="py-0">
-                    <v-text-field v-model="sing_presenter"></v-text-field
+                    <v-text-field v-model="sing_money_inspector"></v-text-field
                   ></v-col>
                   <v-col cols="auto" class="py-0">
                     <v-subheader class="px-0">ผู้เสนอ</v-subheader></v-col
@@ -604,16 +616,16 @@
                 <div class="d-flex justify-center align-center py-0">
                   <v-col cols="10" class="px-0">
                     <v-dialog
-                      ref="dialog_tree"
-                      v-model="modal_tree"
-                      :return-value.sync="date_presenter1"
+                      ref="dialog_date_money"
+                      v-model="modal_date_money"
+                      :return-value.sync="date_money"
                       persistent
                       width="290px"
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
                           class="pt-0 px-6"
-                          v-model="date_presenter1"
+                          v-model="date_money"
                           label="อนุมัติในระบบวันที่"
                           prepend-inner-icon="mdi-calendar"
                           readonly
@@ -621,15 +633,19 @@
                           v-on="on"
                         ></v-text-field>
                       </template>
-                      <v-date-picker v-model="date_presenter1" scrollable>
+                      <v-date-picker v-model="date_money" scrollable>
                         <v-spacer></v-spacer>
-                        <v-btn text color="primary" @click="modal_tree = false">
+                        <v-btn
+                          text
+                          color="primary"
+                          @click="modal_date_money = false"
+                        >
                           Cancel
                         </v-btn>
                         <v-btn
                           text
                           color="primary"
-                          @click="$refs.dialog_tree.save(date_presenter1)"
+                          @click="$refs.dialog_date_money.save(date_money)"
                         >
                           OK
                         </v-btn>
@@ -646,7 +662,7 @@
                     <v-subheader class="px-0">ลงชื่อ</v-subheader>
                   </v-col>
                   <v-col cols="10" class="py-0">
-                    <v-text-field v-model="sing_presenter"></v-text-field
+                    <v-text-field v-model="sing_payee"></v-text-field
                   ></v-col>
                   <v-col cols="auto" class="py-0">
                     <v-subheader class="px-0">ผู้รับเงิน</v-subheader></v-col
@@ -715,6 +731,21 @@ export default {
     sing_inspector: '',
     model_date_inspector: false,
     date_inspector: '',
+    receive_money: '',
+    receive_money_txt: '',
+    money_check: '',
+    money_bankok: '',
+    name_bankok: '',
+    number_bankok: '',
+    money_note: '',
+    money_day: '',
+    model_money_day: false,
+    money_time: '',
+    modal_money_time: false,
+    sing_money_inspector: '',
+    date_money: '',
+    modal_date_money: false,
+    sing_payee: '',
   }),
   methods: {
     check_radio() {
@@ -725,26 +756,31 @@ export default {
       if (this.file_check == 'false') {
         this.file_date = ''
       }
+      if (this.money_check == 'true') {
+        this.money_bankok = ''
+        this.name_bankok = ''
+        this.number_bankok = ''
+      }
     },
     adddate() {
       this.check_radio()
       axios.post('http://localhost:5000/specificones/add', {
-        // id_file: this.id_file,
-        // date_file: this.date_file,
-        // presenter: this.presenter,
-        // affiliation: this.affiliation,
-        // clarify_information: this.clarify_information,
-        // total: this.total,
-        // txt_total: this.txt_total,
-        // date_start: this.date_start,
-        // date_stop: this.date_stop,
-        // sum_total: this.sum_total,
-        // sum_total_txt: this.sum_total_txt,
-        // offer_date: this.offer_date,
-        // offer_time: this.offer_time,
-        // sing_presenter: this.sing_presenter,
-        // confirm_presenter: this.confirm_presenter,
-        // date_presenter: this.date_presenter,
+        id_file: this.id_file,
+        date_file: this.date_file,
+        presenter: this.presenter,
+        affiliation: this.affiliation,
+        clarify_information: this.clarify_information,
+        total: this.total,
+        txt_total: this.txt_total,
+        date_start: this.date_start,
+        date_stop: this.date_stop,
+        sum_total: this.sum_total,
+        sum_total_txt: this.sum_total_txt,
+        offer_date: this.offer_date,
+        offer_time: this.offer_time,
+        sing_presenter: this.sing_presenter,
+        confirm_presenter: this.confirm_presenter,
+        date_presenter: this.date_presenter,
         examine: [
           {
             examine_file: [
@@ -758,6 +794,22 @@ export default {
             note: this.note,
             sing_inspector: this.sing_inspector,
             date_inspector: this.date_inspector,
+            receive_money: this.receive_money,
+            receive_money_txt: this.receive_money_txt,
+            money: [
+              {
+                money_check: this.money_check,
+                money_bankok: this.money_bankok,
+                name_bankok: this.name_bankok,
+                number_bankok: this.number_bankok,
+              },
+            ],
+            money_note: this.money_note,
+            money_day: this.money_day,
+            money_time: this.money_time,
+            sing_money_inspector: this.sing_money_inspector,
+            date_money: this.date_money,
+            sing_payee: this.sing_payee,
           },
         ],
       })
