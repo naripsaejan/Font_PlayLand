@@ -1,15 +1,14 @@
 <template>
   <div>
-    <SteppersSupportBudget />
+    <SteppersSupport />
   </div>
 </template>
 
 <script>
-import SteppersSupportBudget from '~/components/SteppersSupportBudget.vue'
 export default {
   middleware: 'auth',
   components: {
-    SteppersSupportBudget,
+    SteppersSupport: () => import('~/components/SteppersSupport.vue'),
   },
   data() {
     return {

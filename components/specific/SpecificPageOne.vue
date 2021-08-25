@@ -349,7 +349,7 @@
           </div>
         </div>
         <hr />
-        <p class="mt-2">ฝ่ายบัญชีตรวจสอบเอกสารแนบท้ายแล้วพิจารณาว่า</p>
+        <p class="mt-2 ">ฝ่ายบัญชีตรวจสอบเอกสารแนบท้ายแล้วพิจารณาว่า</p>
         <div id="paragraphTwo">
           <div class="d-flex">
             <v-col class="d-flex align-center">
