@@ -8,14 +8,13 @@
           <v-card
             class="mb-12"
             elevation="2"
-            style="max-width: 1000px"
+            style="width: 1000px"
             outlined
             shaped
           >
-            <SpecificPageOne />
+            <SupportPageOne />
           </v-card>
-
-          <v-btn color="primary" @click="e6 = 2"> หน้าถัดไป</v-btn>
+          <v-btn color="primary" @click="e6 = 2">หน้าถัดไป </v-btn>
         </v-stepper-content>
 
         <v-stepper-step :complete="e6 > 2" step="2"> page 2 </v-stepper-step>
@@ -24,12 +23,12 @@
           <v-card
             class="mb-12"
             elevation="2"
-            style="max-width: 1000px"
+            style="width: 1000px"
             outlined
             shaped
           >
-            <SpecificPageTwo />
-          </v-card>
+            <SupportPageTwo
+          /></v-card>
           <v-btn color="primary" @click="e6 = 1"> ย้อนกลับ </v-btn>
         </v-stepper-content>
       </v-stepper>
@@ -40,8 +39,8 @@
 <script>
 export default {
   components: {
-    SpecificPageOne: () => import('~/components/specific/SpecificPageOne.vue'),
-    SpecificPageTwo: () => import('~/components/specific/SpecificPageTwo.vue'),
+    SupportPageOne: () => import('~/components/support/SupportPageOne.vue'),
+    SupportPageTwo: () => import('~/components/support/SupportPageTwo.vue'),
   },
   data() {
     return {
