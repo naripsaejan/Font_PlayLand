@@ -128,7 +128,7 @@ export default {
         {
           icon: 'mdi-apps',
           title: 'เงินเดือน',
-          to: '/',
+          to: '/GenneralTest',
         },
       ],
       item_file: [
