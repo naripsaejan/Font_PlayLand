@@ -9,11 +9,35 @@
     >
       <!-- <v-img style="height: 64px" src="@/assets/img/logo/playland.png"></v-img> -->
       <div class="d-flex justify-center">
-        <img width="100" height="64" src="@/assets/img/logo/playland.png" />
+        <a href="/">
+          <img width="100" height="64" src="@/assets/img/logo/playland.png" />
+        </a>
       </div>
       <v-list class="py-0">
         <v-list-item
           v-for="(item, i) in items"
+          :key="i"
+          :to="item.to"
+          router
+          exact
+        >
+          <v-list-item-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="item.title" />
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+      <div
+        class="d-flex justify-center align-center"
+        style="width: 100%; height: 64px"
+      >
+        <span>แบบฟอร์ม</span>
+      </div>
+      <v-list class="py-0">
+        <v-list-item
+          v-for="(item, i) in item_file"
           :key="i"
           :to="item.to"
           router
@@ -104,7 +128,14 @@ export default {
         {
           icon: 'mdi-apps',
           title: 'เงินเดือน',
-          to: '/GeneralDynamicInput',
+          to: '/',
+        },
+      ],
+      item_file: [
+        {
+          icon: 'mdi-apps',
+          title: 'ไฟล์งบทั่วไป',
+          to: '/GetBudgets',
         },
       ],
       miniVariant: false,
