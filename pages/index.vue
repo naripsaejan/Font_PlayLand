@@ -4,8 +4,16 @@
       <img width="50%" height="50%" src="@/assets/img/logo/playland.png" />
     </div>
     <div class="d-flex justify-center">
-      <p class="text-left" style="font-size: 150px">Welcome</p>
+      <p class="text-left" style="font-size: 150px; height: 203px">Welcome</p>
     </div>
+    <v-col class="d-flex justify-center">
+      <v-btn class="col-2 mx-2" to="/GeneralBudget">เบิกงบทั่วไป</v-btn>
+      <v-btn class="col-2 mx-2" to="/GeneralSpecifically">เบิกงบเฉพาะ</v-btn>
+      <v-btn class="col-2 mx-2" to="/GeneralSupportBudget"
+        >เบิกงบสนับสนุน</v-btn
+      >
+      <v-btn class="col-2 mx-2">เงินเดือน</v-btn></v-col
+    >
   </div>
 </template>
 
