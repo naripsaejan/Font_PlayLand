@@ -34,7 +34,7 @@ export default {
   watch: {
     msg() {
       this.saveColor()
-      console.log('msg ')
+      console.log('msg create')
     },
   },
   methods: {

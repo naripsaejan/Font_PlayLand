@@ -12,7 +12,7 @@
             outlined
             shaped
           >
-            <BudgetPageOne />
+            <BudgetPageOne :call_fun="call_fun" />
           </v-card>
           <v-btn color="primary" @click="e6 = 2"> หน้าถัดไป </v-btn>
         </v-stepper-content>
@@ -25,7 +25,7 @@
             shaped
             style="max-width: 1000px"
           >
-            <BudgetPageTwo />
+            <BudgetPageTwo :call_fun="call_fun" />
           </v-card>
           <v-btn color="primary" @click="e6 = 3">หน้าถัดไป</v-btn>
           <v-btn color="primary" @click="e6 = 1"> ย้อนกลับ </v-btn>
@@ -45,13 +45,14 @@
             shaped
             style="max-width: 1000px"
           >
-            <BudgetPageTree />
+            <BudgetPageTree :call_fun="call_fun" />
           </v-card>
           <!-- <v-btn color="primary" @click="e6 = 4">หน้าถัดไป</v-btn> -->
           <v-btn color="primary" @click="e6 = 2">ย้อนกลับ</v-btn>
         </v-stepper-content>
       </v-stepper>
     </v-app>
+    <v-btn @click="call_fun = !call_fun">call fun</v-btn>
   </div>
 </template>
 
@@ -67,6 +68,7 @@ export default {
     return {
       e6: 1,
       show: false,
+      call_fun: null,
     }
   },
   methods: {

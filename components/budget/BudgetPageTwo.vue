@@ -244,6 +244,7 @@
 <script>
 import axios from 'axios'
 export default {
+  props: ['call_fun'],
   data() {
     return {
       id_file: '',
@@ -412,6 +413,12 @@ export default {
         number_bangkok: this.number_bangkok,
         name_bangkok: this.name_bangkok,
       })
+    },
+  },
+  watch: {
+    call_fun() {
+      console.log('call_fun two')
+      this.PostPageTwo()
     },
   },
 }

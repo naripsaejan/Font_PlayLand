@@ -57,23 +57,12 @@
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
-      <!-- <v-btn icon @click.stop="clipped = !clipped">
-        <v-icon>mdi-application</v-icon>
-      </v-btn> -->
-      <!-- <v-btn icon @click.stop="fixed = !fixed">
-        <v-icon>mdi-minus</v-icon>
-      </v-btn> -->
-      <!-- <v-toolbar-title v-text="title" /> -->
+
       <v-spacer />
-      <!-- <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>mdi-menu</v-icon>
-      </v-btn> -->
+
       <v-btn class="d-flex justify-end" @click="Logout">Logout </v-btn>
     </v-app-bar>
     <v-main>
-      <!-- <v-container>
-        <Nuxt />
-      </v-container> -->
       <div>
         <Nuxt />
       </div>
@@ -88,21 +77,10 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <!-- <v-footer :absolute="!fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer> -->
   </v-app>
 </template>
 
 <script>
-// const { apiUrl } = process.env
-// async function getposts() {
-//   let res = await fetch(`${apiUrl}/bugetones`)
-//   console.log(res)
-//   let posts = await res.json()
-//   return posts
-// }
-// getposts().then((data) => console.log('get posts', data))
 export default {
   data() {
     return {
@@ -132,6 +110,11 @@ export default {
         },
       ],
       item_file: [
+        {
+          icon: 'mdi-apps',
+          title: 'เทสสง id ไฟล์งบทั่วไป',
+          to: '/GetBudgetstable',
+        },
         {
           icon: 'mdi-apps',
           title: 'ไฟล์งบทั่วไป',

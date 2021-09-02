@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Allbudget />
+    <Alltable />
   </div>
 </template>
 
@@ -8,8 +8,8 @@
 export default {
   components: {
     // getbudget: () => import('~/components/getbudget.vue')
-    Allbudget: () => import('~/components/getbudget.vue'),
-    // Alltable: () => import('~/components/get_alltable.vue'),
+    // Allbudget: () => import('~/components/get_allbudget.vue'),
+    Alltable: () => import('~/components/get_alltable.vue'),
   },
 }
 </script>

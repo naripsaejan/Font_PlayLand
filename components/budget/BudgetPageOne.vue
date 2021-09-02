@@ -372,6 +372,7 @@
 import axios from 'axios'
 
 export default {
+  props: ['call_fun'],
   name: 'BudgetPageOne',
   data() {
     return {
@@ -428,7 +429,13 @@ export default {
         confirm_head: this.confirm_head,
         date_head: this.date_head,
       })
-      this.$refs.form.reset()
+      // this.$refs.form.reset()
+    },
+  },
+  watch: {
+    call_fun() {
+      console.log('call_fun one')
+      this.addGin()
     },
   },
 }
