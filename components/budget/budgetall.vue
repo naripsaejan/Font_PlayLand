@@ -271,112 +271,382 @@
           </v-col>
         </div> -->
       </v-card>
-      {{ budgets.budgetthree }}
-      <!-- <p>dsds {{ budgets.budgetthree.purchase_radio }}</p> -->
+
       <v-card
         class="my-4"
         v-for="budgetthrees in budgets.budgetthree"
         :key="budgetthrees._id"
       >
-        <!-- <p>test1: {{ budgetthrees.purchase_radio }}</p>-->
-        <p>
-          test2:
-          {{ budgetthrees._id }}
-        </p>
-        <p>test3: {{ budgetthrees.purchase_radio }}</p>
-        ssss test3 {{ budgetthrees.purchase_radio[0] }}
-
-        <v-card
+        <p class="mt-2 mx-4">ผลการพิจารณาฝ่ายจัดซื้อ</p>
+        <div
           v-for="purchasesloop in budgetthrees.purchase_radio"
           :key="purchasesloop._id"
         >
-          ssss{{ purchasesloop._id }}
-
-          <!-- <v-container fluid>
-            <p>{{ radios || 'null' }}</p>
-            <v-radio-group v-model="radios" mandatory>
-              <v-radio label="Radio 1" value="radio-1"></v-radio>
-              <v-radio label="Radio 2" value="radio-2"></v-radio>
-            </v-radio-group>
-          </v-container> -->
-        </v-card>
-        <!-- {{ budgets.budgetthree.purchase_radio.purchase_id }} -->
-        <v-list-item three-line style="max-width: 1000px">
-          <v-list-item-content>
-            <div id="purchase">
-              <p class="mt-2 mx-4">ผลการพิจารณาฝ่ายจัดซื้อ</p>
-              <div class="d-flex">
-                <v-col class="d-flex align-center">
-                  <v-radio-group>
-                    <v-radio label="ผ่าน " value="true" class="pr-4"></v-radio>
-                  </v-radio-group>
-                  <v-subheader>อนุมัติในระบบ</v-subheader>
-                </v-col>
-              </div>
-              <!--  -->
-              <div class="d-flex">
-                <v-col cols="" class="d-flex align-center">
-                  <v-radio-group v-model="radio_purchase">
-                    <v-radio label="ไม่ผ่าน" value="false"></v-radio>
-                  </v-radio-group>
-                  <v-subheader>เนื่องจาก</v-subheader>
-                  <v-text-field
-                    :disabled="radio_purchase != 'false'"
-                    v-model="purchase_txt"
-                  ></v-text-field>
-                </v-col>
-              </div>
-              <!--  -->
-              <div class="d-flex justify-center">
-                <v-col cols="5" class="d-flex align-center">
-                  <v-subheader>ลงชื่อ</v-subheader>
-                  <v-text-field v-model="purchase_sing"></v-text-field>
-                  <v-subheader>ฝ่ายจัดซื้อ</v-subheader>
-                </v-col>
-                <!--  -->
-                <v-col cols="3">
-                  <v-dialog
-                    ref="dialog_purchase_end"
-                    v-model="modal_purchase_end"
-                    :return-value.sync="date_purchase_end"
-                    persistent
-                    width="290px"
-                  >
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-text-field
-                        label="วันที่บันทึกรายการ"
-                        v-model="date_purchase_end"
-                        prepend-inner-icon="mdi-calendar"
-                        readonly
-                        v-bind="attrs"
-                        v-on="on"
-                      ></v-text-field>
-                    </template>
-                    <v-date-picker v-model="date_purchase_end" scrollable>
-                      <v-spacer></v-spacer>
-                      <v-btn
-                        text
-                        color="primary"
-                        @click="modal_purchase_end = false"
-                      >
-                        Cancel
-                      </v-btn>
-                      <v-btn
-                        text
-                        color="primary"
-                        @click="
-                          $refs.dialog_purchase_end.save(date_purchase_end)
-                        "
-                      >
-                        OK
-                      </v-btn>
-                    </v-date-picker>
-                  </v-dialog>
-                </v-col>
-              </div>
+          <v-container>
+            <div class="d-flex">
+              <v-col class="d-flex align-center">
+                <v-radio-group v-model="purchasesloop.purchase_id" readonly>
+                  <v-radio label="ผ่าน " value="true" class="pr-4"></v-radio>
+                </v-radio-group>
+                <v-subheader>อนุมัติในระบบ วันที่</v-subheader>
+                <v-text-field
+                  :disabled="purchasesloop.purchase_id != 'true'"
+                  v-model="purchasesloop.purchase_date"
+                  readonly
+                ></v-text-field>
+                <v-subheader>เวลา</v-subheader>
+                <v-text-field
+                  :disabled="purchasesloop.purchase_id != 'true'"
+                  v-model="purchasesloop.purchase_time"
+                  readonly
+                  suffix="น."
+                ></v-text-field>
+              </v-col>
             </div>
-          </v-list-item-content>
-        </v-list-item>
+            <div class="d-flex">
+              <v-col cols="" class="d-flex align-center">
+                <v-radio-group v-model="purchasesloop.purchase_id" readonly>
+                  <v-radio label="ไม่ผ่าน" value="false"></v-radio>
+                </v-radio-group>
+                <v-subheader>เนื่องจาก</v-subheader>
+                <v-text-field
+                  :disabled="purchasesloop.purchase_id != 'false'"
+                  v-model="purchasesloop.purchase_txt"
+                  readonly
+                ></v-text-field>
+              </v-col>
+            </div>
+          </v-container>
+        </div>
+        <div class="d-flex justify-center">
+          <v-col cols="5" class="d-flex align-center">
+            <v-subheader>ลงชื่อ</v-subheader>
+            <v-text-field v-model="budgetthrees.purchase_sing"></v-text-field>
+            <v-subheader>ฝ่ายจัดซื้อ</v-subheader>
+          </v-col>
+          <v-col cols="3" class="d-flex align-center">
+            <v-subheader>วันที่บันทึกรายการ</v-subheader>
+            <v-text-field
+              v-model="budgetthrees.purchase_date"
+              readonly
+            ></v-text-field>
+          </v-col>
+        </div>
+        <p class="mt-2 mx-4">ผลการพิจารณาฝ่ายบริหาร</p>
+        <div
+          v-for="manageloop in budgetthrees.manage_radio"
+          :key="manageloop._id"
+        >
+          <v-container>
+            <div class="d-flex">
+              <v-col class="d-flex align-center">
+                <v-radio-group v-model="manageloop.manage_id" readonly>
+                  <v-radio label="ผ่าน " value="true" class="pr-4"></v-radio>
+                </v-radio-group>
+                <v-subheader>อนุมัติในระบบ วันที่</v-subheader>
+                <v-text-field
+                  :disabled="manageloop.manage_id != 'true'"
+                  v-model="manageloop.manage_date"
+                  readonly
+                ></v-text-field>
+                <v-subheader>เวลา</v-subheader>
+                <v-text-field
+                  :disabled="manageloop.manage_id != 'true'"
+                  v-model="manageloop.manage_time"
+                  readonly
+                  suffix="น."
+                ></v-text-field>
+              </v-col>
+            </div>
+            <div class="d-flex">
+              <v-col cols="" class="d-flex align-center">
+                <v-radio-group v-model="manageloop.manage_id" readonly>
+                  <v-radio label="ไม่ผ่าน" value="false"></v-radio>
+                </v-radio-group>
+                <v-subheader>เนื่องจาก</v-subheader>
+                <v-text-field
+                  :disabled="manageloop.manage_id != 'false'"
+                  v-model="manageloop.manage_txt"
+                  readonly
+                ></v-text-field>
+              </v-col>
+            </div>
+          </v-container>
+        </div>
+        <div class="d-flex justify-center">
+          <v-col cols="5" class="d-flex align-center">
+            <v-subheader>ลงชื่อ</v-subheader>
+            <v-text-field v-model="budgetthrees.manage_sing"></v-text-field>
+            <v-subheader>ฝ่ายจัดซื้อ</v-subheader>
+          </v-col>
+          <!--  -->
+          <v-col cols="3" class="d-flex align-center">
+            <v-subheader>วันที่บันทึกรายการ</v-subheader>
+            <v-text-field
+              v-model="budgetthrees.manage_date"
+              readonly
+            ></v-text-field>
+          </v-col>
+        </div>
+        <!--  -->
+        <div>
+          <p class="mt-2 ml-4">การจ่ายเงินโดยฝ่ายบัญชี</p>
+          <v-col cols="12" class="d-flex">
+            <v-col cols="auto">
+              <v-text-field
+                v-model="budgetthrees.account_payment"
+                readonly
+              ></v-text-field>
+            </v-col>
+          </v-col>
+          <!--  -->
+          <div
+            v-for="accountloop in budgetthrees.account_radio"
+            :key="accountloop._id"
+          >
+            <v-col class="d-flex">
+              <v-radio-group
+                class="pr-4"
+                v-model="accountloop.radio_id"
+                readonly
+              >
+                <v-radio label="ผ่าน" value="true"></v-radio>
+              </v-radio-group>
+              <v-text-field
+                class="pr-4"
+                label="แคชเชียร์เช็คธนาคาร"
+                :disabled="accountloop.radio_id != 'true'"
+                v-model="accountloop.cashier"
+                readonly
+              ></v-text-field>
+              <v-text-field
+                class="pr-4"
+                label="เลขที่บัญชี"
+                :disabled="accountloop.radio_id != 'true'"
+                v-model="accountloop.numberaccount"
+                readonly
+              ></v-text-field>
+              <v-text-field
+                v-model="accountloop.confirm_account"
+                class="pr-4"
+                cols="10"
+                label="สั่งจ่าย"
+                :disabled="accountloop.radio_id != 'true'"
+                readonly
+              ></v-text-field>
+
+              <v-text-field
+                v-model="accountloop.cashier_date"
+                label="วันที่"
+                readonly
+                :disabled="accountloop.radio_id != 'true'"
+              ></v-text-field>
+            </v-col>
+            <!--  -->
+            <v-col class="d-flex">
+              <v-radio-group
+                class="pr-4"
+                v-model="accountloop.radio_id"
+                readonly
+              >
+                <v-radio label="ไม่ผ่าน" value="false"></v-radio>
+              </v-radio-group>
+
+              <v-text-field
+                v-model="accountloop.bangkok"
+                class="pr-4"
+                label="โอนเงิน ธนาคาร"
+                :disabled="accountloop.radio_id != 'false'"
+                readonly
+              ></v-text-field>
+
+              <v-text-field
+                v-model="accountloop.number_bangkok"
+                class="pr-4"
+                label="เลขที่บัญชี"
+                :disabled="accountloop.radio_id != 'false'"
+                readonly
+              ></v-text-field>
+
+              <v-text-field
+                v-model="accountloop.name_bangkok"
+                cols="10"
+                label="ชื่อบัญชี"
+                :disabled="accountloop.radio_id != 'false'"
+                readonly
+              ></v-text-field>
+            </v-col>
+            <!--  -->
+            <v-col class="d-flex">
+              <v-text-field
+                v-model="budgetthrees.total_money"
+                class="pr-4"
+                label="จำนวนทั้งสิ้น"
+                suffix="บาท"
+                readonly
+              ></v-text-field>
+              <v-text-field
+                v-model="budgetthrees.total_moneytext"
+                prefix="("
+                suffix=")บาท"
+                readonly
+              ></v-text-field>
+            </v-col>
+            <!--  -->
+            <v-col>
+              <v-text-field
+                v-model="budgetthrees.note"
+                label="หมายเหตุ"
+                readonly
+              ></v-text-field>
+            </v-col>
+            <!--  -->
+            <v-col class="d-flex justify-center align-center">
+              <v-subheader>วันที่จ่ายเงิน</v-subheader>
+              <v-text-field
+                v-model="budgetthrees.date_pay"
+                readonly
+              ></v-text-field>
+              <v-subheader>เวลา</v-subheader>
+              <v-text-field
+                v-model="budgetthrees.time_pay"
+                readonly
+                suffix="น."
+              ></v-text-field>
+            </v-col>
+            <!--  -->
+            <v-col class="d-flex">
+              <v-col>
+                <v-col class="d-flex px-0">
+                  <v-col class="px-2 d-flex align-center">
+                    <v-subheader class="pr-2 pl-0">ลงชื่อ</v-subheader>
+                    <v-text-field
+                      v-model="budgetthrees.person_pay"
+                    ></v-text-field>
+                    <v-subheader class="px-0">ผู้จ่ายเงิน</v-subheader>
+                  </v-col>
+                </v-col>
+                <v-col class="d-flex align-center" cols="12">
+                  <v-subheader class="px-0">อนุมัติในระบบ วันที่</v-subheader>
+                  <v-col>
+                    <v-text-field
+                      v-model="budgetthrees.approve_day"
+                      readonly
+                    ></v-text-field>
+                  </v-col>
+                  <v-subheader class="px-0">เวลา</v-subheader>
+                  <v-col class="d-flex align-center">
+                    <v-text-field
+                      v-model="budgetthrees.approve_time"
+                      readonly
+                    ></v-text-field>
+                  </v-col>
+                </v-col>
+              </v-col>
+              <v-col>
+                <v-col class="d-flex px-0">
+                  <v-col class="px-2 d-flex align-center">
+                    <v-subheader class="pr-2 pl-0">ลงชื่อ</v-subheader>
+                    <v-text-field
+                      v-model="budgetthrees.person_receive"
+                    ></v-text-field>
+                    <v-subheader class="px-0">ผู้รับเงิน</v-subheader>
+                  </v-col>
+                </v-col>
+              </v-col>
+            </v-col>
+          </div>
+        </div>
+        <!--  -->
+        <v-col class="d-flex align-center">
+          <v-col class="px-2 d-flex">
+            <v-subheader class="pl-0"
+              >ได้รับใบเสร็จรับเงิน / ใบกำกับภาษี และตรวจสอบถูกต้อง
+              วันที่</v-subheader
+            >
+
+            <v-text-field
+              v-model="budgetthrees.slip_date"
+              readonly
+            ></v-text-field>
+          </v-col>
+        </v-col>
+        <v-col
+          class="d-felx align-center px-0"
+          v-for="sliploop in budgetthrees.slip_radio"
+          :key="sliploop._id"
+        >
+          <v-radio-group v-model="sliploop.radio_id">
+            <v-col
+              ><v-radio value="ไม่มีเงินต้องคืน" label="ไม่มีเงินต้องคืน">
+              </v-radio
+            ></v-col>
+
+            <v-col class="d-flex align-center">
+              <v-radio value="คืนเงินจำนวน" label="คืนเงินจำนวน"> </v-radio>
+              <v-text-field
+                class="px-4"
+                label="จำนวนทั้งสิ้น"
+                suffix="บาท"
+                :disabled="sliploop.radio_id != 'คืนเงินจำนวน'"
+                v-model="sliploop.total"
+                readonly
+              ></v-text-field>
+              <v-text-field
+                v-model="sliploop.txt_total"
+                :disabled="sliploop.radio_id != 'คืนเงินจำนวน'"
+                prefix="("
+                suffix=")บาท"
+                readonly
+              ></v-text-field>
+            </v-col>
+          </v-radio-group>
+        </v-col>
+
+        <v-col class="d-flex pl-0">
+          <v-col>
+            <v-col class="d-flex align-center">
+              <v-subheader class="pr-2 pl-0">ลงชื่อ</v-subheader>
+              <v-text-field
+                v-model="budgetthrees.slipperson_pay"
+              ></v-text-field>
+              <v-subheader class="px-0">ผู้จ่ายเงิน</v-subheader>
+            </v-col>
+            <v-col class="d-flex align-center" cols="12">
+              <v-subheader class="px-0">อนุมัติในระบบ วันที่</v-subheader>
+              <v-col class="py-0">
+                <v-text-field
+                  v-model="budgetthrees.slip_date"
+                  readonly
+                ></v-text-field>
+              </v-col>
+              <v-subheader class="px-0">เวลา</v-subheader>
+              <v-col class="py-0">
+                <v-text-field
+                  v-model="budgetthrees.slipapprove_time"
+                  readonly
+                ></v-text-field>
+              </v-col>
+            </v-col>
+          </v-col>
+          <v-col>
+            <v-col class="d-flex align-center">
+              <v-subheader class="pr-2 pl-0">ลงชื่อ</v-subheader>
+              <v-text-field
+                v-model="budgetthrees.slipperson_receive1"
+              ></v-text-field>
+              <v-subheader class="px-0">ผู้รับเงิน</v-subheader>
+            </v-col>
+            <v-col class="d-flex align-center">
+              <v-subheader class="pr-2 pl-0">ลงชื่อ</v-subheader>
+
+              <v-text-field
+                v-model="budgetthrees.slipperson_receive2"
+              ></v-text-field>
+              <v-subheader class="px-0">ผู้รับเงิน</v-subheader>
+            </v-col>
+          </v-col>
+        </v-col>
       </v-card>
     </div>
   </div>
@@ -394,10 +664,10 @@ export default {
       budgettwos: [],
       budgetthrees: [],
       purchasesloop: '',
-      radios: null,
-
-      // radio_purchase: this.budgets.budgetthree.purchase_radio.purchase_id,
-      //
+      manageloop: '',
+      sliploop: '',
+      accountloop: '',
+      radios: '11',
       headers: [
         {
           text: 'ลำดับที่',
@@ -420,46 +690,7 @@ export default {
           protein: 4.0,
           iron: '1%',
         },
-        {
-          name: 'Ice cream sandwich',
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-          iron: '1%',
-        },
-        {
-          name: 'Eclair',
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-          iron: '7%',
-        },
-        {
-          name: 'Cupcake',
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-          iron: '8%',
-        },
-        {
-          name: 'Gingerbread',
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9,
-          iron: '16%',
-        },
-        {
-          name: 'Jelly bean',
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0,
-          iron: '0%',
-        },
+
         {
           name: 'Lollipop',
           calories: 392,
@@ -475,7 +706,6 @@ export default {
     getall() {
       console.log('e')
       const url = `http://localhost:5000/api/v1/budget`
-      // const url = `http://localhost:5000/bugetones/612dd36d6894783228f80d2c`
       axios.get(url).then((res) => {
         this.budget = res.data
         // console.log('testget', this.budget)
