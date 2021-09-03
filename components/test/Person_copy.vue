@@ -30,18 +30,16 @@ export default {
       Person_copy: null,
       colors: ['red', 'gree', 'blug'],
       childsends: ['1', '2'],
-      testcolor: this.color,
+      testcolor: this.testcolor,
       testchildsend: this.childsend,
     }
   },
   computed: {},
   methods: {
-    addColor(color, childsend, ee) {
-      // console.log('Person_copy addColor', ee)
-      // this.$emit('createColor', this.color)
-      console.log('check', color, childsend)
-      // this.run()
-      this.colors.push(color)
+    addColor(testcolor, childsend, a, b, ee) {
+      console.log('check : ', childsend, testcolor, a, b)
+
+      this.colors.push(testcolor)
       this.childsends.push(childsend)
     },
     run() {

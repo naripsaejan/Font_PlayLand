@@ -1,15 +1,13 @@
 <template>
   <div>
-    <Allbudget />
+    <Budgetall />
   </div>
 </template>
 
 <script>
 export default {
   components: {
-    // getbudget: () => import('~/components/getbudget.vue')
-    Allbudget: () => import('~/components/getbudget.vue'),
-    // Alltable: () => import('~/components/get_alltable.vue'),
+    Budgetall: () => import('~/components/budget/budgetall.vue'),
   },
 }
 </script>

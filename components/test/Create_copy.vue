@@ -8,7 +8,7 @@
         type="text"
         class="form-control"
         :placeholder="hint"
-        v-model="color"
+        v-model="testcolor"
       />
       <label>Input new childsend</label>
       <input
@@ -27,8 +27,10 @@ export default {
   props: ['hint', 'msg'],
   data() {
     return {
-      color: 'color1', // (3)
-      childsend: 'childsend2',
+      testcolor: 'color', // (3)
+      childsend: 'childsend',
+      a: 'a',
+      b: 'b',
     }
   },
   watch: {
@@ -41,7 +43,13 @@ export default {
     saveColor() {
       console.log(
         'Create_copy saveColor//4',
-        this.$emit('createColor', this.color, this.childsend)
+        this.$emit(
+          'createColor',
+          this.testcolor,
+          this.childsend,
+          this.a,
+          this.b
+        )
       )
     },
   },

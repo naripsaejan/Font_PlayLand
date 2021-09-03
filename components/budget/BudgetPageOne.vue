@@ -376,6 +376,7 @@ export default {
   name: 'BudgetPageOne',
   data() {
     return {
+      budgetone:[],
       valid: false,
       id_file: '',
       date_file: '',
@@ -408,27 +409,27 @@ export default {
   },
   methods: {
     addGin() {
-      axios.post('http://localhost:5000/bugetones/add', {
-        id_file: this.id_file,
-        date_file: this.date_file,
-        presenter: this.presenter,
-        affiliation: this.affiliation,
-        offerprice: this.offerprice,
-        necessity: this.necessity,
-        action: this.action,
-        date_start: this.date_start,
-        date_finished: this.date_finished,
-        sum_total: this.sum_total,
-        sum_tatal_text: this.sum_tatal_text,
-        date_in: this.date_in,
-        time_in: this.time_in,
-        sing_presenter: this.sing_presenter,
-        confirm_presenter: this.confirm_presenter,
-        date_presenter: this.date_presenter,
-        sing_head: this.sing_head,
-        confirm_head: this.confirm_head,
-        date_head: this.date_head,
-      })
+      // axios.post('http://localhost:5000/bugetones/add', {
+      //   id_file: this.id_file,
+      //   date_file: this.date_file,
+      //   presenter: this.presenter,
+      //   affiliation: this.affiliation,
+      //   offerprice: this.offerprice,
+      //   necessity: this.necessity,
+      //   action: this.action,
+      //   date_start: this.date_start,
+      //   date_finished: this.date_finished,
+      //   sum_total: this.sum_total,
+      //   sum_tatal_text: this.sum_tatal_text,
+      //   date_in: this.date_in,
+      //   time_in: this.time_in,
+      //   sing_presenter: this.sing_presenter,
+      //   confirm_presenter: this.confirm_presenter,
+      //   date_presenter: this.date_presenter,
+      //   sing_head: this.sing_head,
+      //   confirm_head: this.confirm_head,
+      //   date_head: this.date_head,
+      // })
       // this.$refs.form.reset()
     },
   },
