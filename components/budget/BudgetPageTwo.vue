@@ -182,7 +182,7 @@
               <v-text-field v-model="vat" label="VAT 7%"></v-text-field>
               <v-text-field
                 v-model="sum_total"
-                label="รวทเป็นเงินทั้งสิ้น"
+                label="รวมเป็นเงินทั้งสิ้น"
               ></v-text-field>
             </v-col>
           </div>
@@ -244,6 +244,7 @@
 <script>
 import axios from 'axios'
 export default {
+  props: ['call_fun'],
   data() {
     return {
       id_file: '',
@@ -331,8 +332,6 @@ export default {
       ]
     },
     test() {
-      debugger
-
       console.log('test', this.desserts)
     },
 
@@ -374,12 +373,9 @@ export default {
 
       if (this.editedIndex > -1) {
         Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        debugger
       } else {
         this.desserts.push(this.editedItem)
-        debugger
       }
-      debugger
 
       this.close()
     },
@@ -412,6 +408,12 @@ export default {
         number_bangkok: this.number_bangkok,
         name_bangkok: this.name_bangkok,
       })
+    },
+  },
+  watch: {
+    call_fun() {
+      console.log('call_fun two')
+      this.PostPageTwo()
     },
   },
 }

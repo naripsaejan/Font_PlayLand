@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-form ref="form" @submit.prevent="PostPageThree">
+    <v-form ref="form" @submit.prevent="senddate">
       <v-row class="mt-3" style="max-width: 1000px">
         <div class="mb-2">
           <div id="purchase">
@@ -792,6 +792,7 @@
 <script>
 import axios from 'axios'
 export default {
+  props: ['call_fun'],
   data() {
     return {
       firstname_account: '',
@@ -911,9 +912,9 @@ export default {
       }
       // if (this.radio_receive == 'คืนเงินจำนวน') {
       // }
-      this.senddate()
     },
     senddate() {
+      this.PostPageThree()
       axios.post('http://localhost:5000/bugetthrees/add', {
         purchase_radio: [
           {
@@ -974,7 +975,13 @@ export default {
         slipapprove_time: this.time_receive,
         slipperson_receive2: this.slipperson_receive2,
       })
-      this.$refs.form.reset()
+      // this.$refs.form.reset()
+    },
+  },
+  watch: {
+    call_fun() {
+      console.log('call_fun three')
+      this.senddate()
     },
   },
 }

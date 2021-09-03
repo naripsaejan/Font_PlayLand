@@ -321,6 +321,42 @@
             </v-col>
           </div>
           <!--  -->
+          <div class="d-flex justify-center pt-0">
+            <v-col cols="4" class="pt-0">
+              <v-dialog
+                ref="dialog_date_head"
+                v-model="modal_date_head"
+                :return-value.sync="date_head"
+                persistent
+                width="290px"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    class="pt-0 px-6"
+                    v-model="date_head"
+                    label="วันที่"
+                    prepend-inner-icon="mdi-calendar"
+                    readonly
+                    v-bind="attrs"
+                    v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker v-model="date_head" scrollable>
+                  <v-spacer></v-spacer>
+                  <v-btn text color="primary" @click="modal_date_head = false">
+                    Cancel
+                  </v-btn>
+                  <v-btn
+                    text
+                    color="primary"
+                    @click="$refs.dialog_date_head.save(date_head)"
+                  >
+                    OK
+                  </v-btn>
+                </v-date-picker>
+              </v-dialog>
+            </v-col>
+          </div>
         </div>
       </v-row>
       <div>
@@ -336,9 +372,11 @@
 import axios from 'axios'
 
 export default {
+  props: ['call_fun'],
   name: 'BudgetPageOne',
   data() {
     return {
+      budgetone:[],
       valid: false,
       id_file: '',
       date_file: '',
@@ -365,31 +403,40 @@ export default {
       modal_finished: false,
       time: null,
       modal: false,
+      date_head: '',
+      modal_date_head: false,
     }
   },
   methods: {
     addGin() {
-      axios.post('http://localhost:5000/bugetones/add', {
-        id_file: this.id_file,
-        date_file: this.date_file,
-        presenter: this.presenter,
-        affiliation: this.affiliation,
-        offerprice: this.offerprice,
-        necessity: this.necessity,
-        action: this.action,
-        date_start: this.date_start,
-        date_finished: this.date_finished,
-        sum_total: this.sum_total,
-        sum_tatal_text: this.sum_tatal_text,
-        date_in: this.date_in,
-        time_in: this.time_in,
-        sing_presenter: this.sing_presenter,
-        confirm_presenter: this.confirm_presenter,
-        date_presenter: this.date_presenter,
-        sing_head: this.sing_head,
-        confirm_head: this.confirm_head,
-      })
-      this.$refs.form.reset()
+      // axios.post('http://localhost:5000/bugetones/add', {
+      //   id_file: this.id_file,
+      //   date_file: this.date_file,
+      //   presenter: this.presenter,
+      //   affiliation: this.affiliation,
+      //   offerprice: this.offerprice,
+      //   necessity: this.necessity,
+      //   action: this.action,
+      //   date_start: this.date_start,
+      //   date_finished: this.date_finished,
+      //   sum_total: this.sum_total,
+      //   sum_tatal_text: this.sum_tatal_text,
+      //   date_in: this.date_in,
+      //   time_in: this.time_in,
+      //   sing_presenter: this.sing_presenter,
+      //   confirm_presenter: this.confirm_presenter,
+      //   date_presenter: this.date_presenter,
+      //   sing_head: this.sing_head,
+      //   confirm_head: this.confirm_head,
+      //   date_head: this.date_head,
+      // })
+      // this.$refs.form.reset()
+    },
+  },
+  watch: {
+    call_fun() {
+      console.log('call_fun one')
+      this.addGin()
     },
   },
 }

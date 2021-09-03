@@ -9,11 +9,35 @@
     >
       <!-- <v-img style="height: 64px" src="@/assets/img/logo/playland.png"></v-img> -->
       <div class="d-flex justify-center">
-        <img width="100" height="64" src="@/assets/img/logo/playland.png" />
+        <a href="/">
+          <img width="100" height="64" src="@/assets/img/logo/playland.png" />
+        </a>
       </div>
       <v-list class="py-0">
         <v-list-item
           v-for="(item, i) in items"
+          :key="i"
+          :to="item.to"
+          router
+          exact
+        >
+          <v-list-item-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="item.title" />
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+      <div
+        class="d-flex justify-center align-center"
+        style="width: 100%; height: 64px"
+      >
+        <span>แบบฟอร์ม</span>
+      </div>
+      <v-list class="py-0">
+        <v-list-item
+          v-for="(item, i) in item_file"
           :key="i"
           :to="item.to"
           router
@@ -33,23 +57,12 @@
       <v-btn icon @click.stop="miniVariant = !miniVariant">
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
-      <!-- <v-btn icon @click.stop="clipped = !clipped">
-        <v-icon>mdi-application</v-icon>
-      </v-btn> -->
-      <!-- <v-btn icon @click.stop="fixed = !fixed">
-        <v-icon>mdi-minus</v-icon>
-      </v-btn> -->
-      <!-- <v-toolbar-title v-text="title" /> -->
+
       <v-spacer />
-      <!-- <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>mdi-menu</v-icon>
-      </v-btn> -->
+
       <v-btn class="d-flex justify-end" @click="Logout">Logout </v-btn>
     </v-app-bar>
     <v-main>
-      <!-- <v-container>
-        <Nuxt />
-      </v-container> -->
       <div>
         <Nuxt />
       </div>
@@ -64,21 +77,10 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <!-- <v-footer :absolute="!fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer> -->
   </v-app>
 </template>
 
 <script>
-// const { apiUrl } = process.env
-// async function getposts() {
-//   let res = await fetch(`${apiUrl}/bugetones`)
-//   console.log(res)
-//   let posts = await res.json()
-//   return posts
-// }
-// getposts().then((data) => console.log('get posts', data))
 export default {
   data() {
     return {
@@ -104,7 +106,19 @@ export default {
         {
           icon: 'mdi-apps',
           title: 'เงินเดือน',
-          to: '/GeneralDynamicInput',
+          to: '/GenneralTest',
+        },
+      ],
+      item_file: [
+        {
+          icon: 'mdi-apps',
+          title: 'เทสสง id ไฟล์งบทั่วไป',
+          to: '/GetBudgetstable',
+        },
+        {
+          icon: 'mdi-apps',
+          title: 'ไฟล์งบทั่วไป',
+          to: '/GetBudgets',
         },
       ],
       miniVariant: false,
