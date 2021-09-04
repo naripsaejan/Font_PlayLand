@@ -112,8 +112,8 @@ export default {
       item_file: [
         {
           icon: 'mdi-apps',
-          title: 'เทสสง id ไฟล์งบทั่วไป',
-          to: '/GetBudgetstable',
+          title: 'ไฟล์งบทั่วไป',
+          to: '/budgets',
         },
         {
           icon: 'mdi-apps',

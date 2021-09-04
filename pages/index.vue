@@ -23,9 +23,7 @@ export default {
 
   components: {},
   data() {
-    return {
-      e1: 1,
-    }
+    return {}
   },
 }
 </script>
