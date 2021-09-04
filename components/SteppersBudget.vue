@@ -51,11 +51,20 @@
             />
           </v-card>
           <!-- <v-btn color="primary" @click="e6 = 4">หน้าถัดไป</v-btn> -->
-          <v-btn color="primary" @click="e6 = 2">ย้อนกลับ</v-btn>
+          <div class="d-flex justify-space-between">
+            <v-btn color="primary" @click="e6 = 2">ย้อนกลับ</v-btn>
+            <v-btn
+              @click="call_fun = !call_fun"
+              color="secondary"
+              depressed
+              elevation="6"
+              plain
+              >บันทึกข้อมูล</v-btn
+            >
+          </div>
         </v-stepper-content>
       </v-stepper>
     </v-app>
-    <v-btn @click="call_fun = !call_fun">call fun</v-btn>
   </div>
 </template>
 
@@ -93,13 +102,14 @@ export default {
       await console.log('testpagethree', (this.budgetthrees = budgetthreesend))
       this.addGin()
     },
-    addGin() {
-      console.log('111', this.budgetones)
-      axios.post('http://localhost:5000/api/v1/budget/', {
+    async addGin() {
+      await console.log('111', this.budgetones)
+      await axios.post('http://localhost:5000/api/v1/budget/', {
         budgetone: this.budgetones,
         budgettwo: this.budgettwos,
         budgetthree: this.budgetthrees,
       })
+      await (this.e6 = 4)
     },
     // pagesubmit() {
     //   console.log('asdas')

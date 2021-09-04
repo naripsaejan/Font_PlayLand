@@ -232,11 +232,11 @@
           </div>
         </div>
       </v-row>
-      <div>
+      <!-- <div>
         <v-btn type="submit" value="Submit" class="button-pr btn-send"
           >ส่งข้อมูล</v-btn
         >
-      </div>
+      </div> -->
     </v-form>
   </div>
 </template>

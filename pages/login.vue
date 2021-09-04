@@ -30,17 +30,30 @@ export default {
   },
   methods: {
     async handleLoginClicked() {
+      console.log('ccc1', this.email)
+      console.log('ccc2', this.password)
       try {
-        const response = await this.$auth.loginWith('local', {
-          data: { user: { email: this.email, password: this.password } },
-        })
-        console.log(response)
-        if (response.data.success) {
+        console.log('ccc2')
+        if (this.email == 'admin' && this.password == 'admin') {
           // this.$router.replace({ name: 'blogs' })
+          console.log('ccc')
           this.$router.replace({ name: 'index' })
+          // return (window.location.href = '/')
         }
       } catch (err) {
         console.log(err)
+        //อันล่างใช้งานจริง
+        // try {
+        //   const response = await this.$auth.loginWith('local', {
+        //     data: { user: { email: this.email, password: this.password } },
+        //   })
+        //   console.log('login', response)
+        //   if (response.data.success) {
+        //     // this.$router.replace({ name: 'blogs' })
+        //     this.$router.replace({ name: 'index' })
+        //   }
+        // } catch (err) {
+        //   console.log(err)
       }
     },
   },
