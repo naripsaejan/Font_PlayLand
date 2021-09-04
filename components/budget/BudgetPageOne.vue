@@ -360,9 +360,9 @@
         </div>
       </v-row>
       <div>
-        <v-btn type="submit" value="Submit" class="button-pr btn-send"
+        <!-- <v-btn type="submit" value="Submit" class="button-pr btn-send"
           >ส่งข้อมูล</v-btn
-        >
+        > -->
       </div>
     </v-form>
   </div>
@@ -379,8 +379,8 @@ export default {
     return {
       budgetone: [],
       valid: false,
-      id_file: 'sss',
-      date_file: 'ddd',
+      id_file: '',
+      date_file: '',
       presenter: '',
       affiliation: '',
       offerprice: '',
@@ -412,47 +412,27 @@ export default {
     addGin() {
       this.budgetonesend = [
         {
-          id_file: '222',
-          date_file: '11/11/1111',
-          presenter: 'นริพภ์ แซ่จัน',
-          affiliation: 'สังกัด',
-          total: 'ราคารวม',
-          discount: 'ส่วนลด',
-          discount_price: 'ราคาหักส่วนลด',
-          vat: '7%',
-          sum_txt_total: 'รวมเป็นเงินทั้งสิ้นตัวอักษร',
-          sum_total: 'รวมเป็นเงินทั้งสิ้น',
-          note: 'หมายเหตุ',
-          purchasing: 'วิธีการจัดซื้อ',
-          condition: 'เงื่อนไขการชำระเงิน',
-          payment: 'วิธีการชำระเงิน',
-          bangkok: 'ธนาคาร',
-          number_bangkok: 'เลขที่บัญชี',
-          name_bangkok: 'ชื่อบัญชี',
+          date_file: this.date_file,
+          presenter: this.presenter,
+          affiliation: this.affiliation,
+          offerprice: this.offerprice,
+          necessity: this.necessity,
+          action: this.action,
+          date_start: this.date_start,
+          date_finished: this.date_finished,
+          sum_total: this.sum_total,
+          sum_tatal_text: this.sum_tatal_text,
+          date_in: this.date_in,
+          time_in: this.time_in,
+          sing_presenter: this.sing_presenter,
+          confirm_presenter: this.confirm_presenter,
+          date_presenter: this.date_presenter,
+          sing_head: this.sing_head,
+          confirm_head: this.confirm_head,
+          date_head: this.date_head,
         },
       ]
       this.$emit('createpangone', this.budgetonesend)
-      // axios.post('http://localhost:5000/bugetones/add', {
-      //   id_file: this.id_file,
-      //   date_file: this.date_file,
-      //   presenter: this.presenter,
-      //   affiliation: this.affiliation,
-      //   offerprice: this.offerprice,
-      //   necessity: this.necessity,
-      //   action: this.action,
-      //   date_start: this.date_start,
-      //   date_finished: this.date_finished,
-      //   sum_total: this.sum_total,
-      //   sum_tatal_text: this.sum_tatal_text,
-      //   date_in: this.date_in,
-      //   time_in: this.time_in,
-      //   sing_presenter: this.sing_presenter,
-      //   confirm_presenter: this.confirm_presenter,
-      //   date_presenter: this.date_presenter,
-      //   sing_head: this.sing_head,
-      //   confirm_head: this.confirm_head,
-      //   date_head: this.date_head,
-      // })
       // this.$refs.form.reset()
     },
   },
