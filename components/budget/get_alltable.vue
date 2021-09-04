@@ -1,7 +1,6 @@
 <template lang="html">
   <div>
     <div v-for="budgets in budget" :key="budgets._id">
-      {{ budgets._id }}
       <!-- <v-card
         :to="poslink(budgets._id)"
         class="mx-4 my-4"

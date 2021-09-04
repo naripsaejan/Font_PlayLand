@@ -370,16 +370,17 @@
 
 <script>
 import axios from 'axios'
+import budget from '~/store/budget'
 
 export default {
   props: ['call_fun'],
   name: 'BudgetPageOne',
   data() {
     return {
-      budgetone:[],
+      budgetone: [],
       valid: false,
-      id_file: '',
-      date_file: '',
+      id_file: 'sss',
+      date_file: 'ddd',
       presenter: '',
       affiliation: '',
       offerprice: '',
@@ -409,6 +410,28 @@ export default {
   },
   methods: {
     addGin() {
+      this.budgetonesend = [
+        {
+          id_file: '222',
+          date_file: '11/11/1111',
+          presenter: 'นริพภ์ แซ่จัน',
+          affiliation: 'สังกัด',
+          total: 'ราคารวม',
+          discount: 'ส่วนลด',
+          discount_price: 'ราคาหักส่วนลด',
+          vat: '7%',
+          sum_txt_total: 'รวมเป็นเงินทั้งสิ้นตัวอักษร',
+          sum_total: 'รวมเป็นเงินทั้งสิ้น',
+          note: 'หมายเหตุ',
+          purchasing: 'วิธีการจัดซื้อ',
+          condition: 'เงื่อนไขการชำระเงิน',
+          payment: 'วิธีการชำระเงิน',
+          bangkok: 'ธนาคาร',
+          number_bangkok: 'เลขที่บัญชี',
+          name_bangkok: 'ชื่อบัญชี',
+        },
+      ]
+      this.$emit('createpangone', this.budgetonesend)
       // axios.post('http://localhost:5000/bugetones/add', {
       //   id_file: this.id_file,
       //   date_file: this.date_file,

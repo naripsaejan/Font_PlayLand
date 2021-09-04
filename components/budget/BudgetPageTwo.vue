@@ -247,6 +247,7 @@ export default {
   props: ['call_fun'],
   data() {
     return {
+      budgettwo: ['c', 'd'],
       id_file: '',
       date_file: '',
       presenter: '',
@@ -380,34 +381,36 @@ export default {
       this.close()
     },
     PostPageTwo() {
-      axios.post('http://localhost:5000/bugettwos/add', {
-        id_file: this.id_file,
-        date_file: this.date_file,
-        presenter: this.presenter,
-        affiliation: this.affiliation,
-        // tabel_data: [
-        //   {
-        //     data_id: req.body.tabel_data[0].data_id,
-        //     data_list: req.body.tabel_data[0].data_list,
-        //     data_total: req.body.tabel_data[0].data_total,
-        //     data_unit: req.body.tabel_data[0].data_unit,
-        //     data_unit_price: req.body.tabel_data[0].data_unit_price,
-        //   }
-        // ]
-        total: this.total,
-        discount: this.discount,
-        discount_price: this.discount_price,
-        vat: this.vat,
-        sum_txt_total: this.sum_txt_total,
-        sum_total: this.sum_total,
-        note: this.note,
-        purchasing: this.purchasing,
-        condition: this.condition,
-        payment: this.payment,
-        bangkok: this.bangkok,
-        number_bangkok: this.number_bangkok,
-        name_bangkok: this.name_bangkok,
-      })
+      this.$emit('createpangtwo', this.budgettwo)
+
+      //   axios.post('http://localhost:5000/bugettwos/add', {
+      //     id_file: this.id_file,
+      //     date_file: this.date_file,
+      //     presenter: this.presenter,
+      //     affiliation: this.affiliation,
+      //     // tabel_data: [
+      //     //   {
+      //     //     data_id: req.body.tabel_data[0].data_id,
+      //     //     data_list: req.body.tabel_data[0].data_list,
+      //     //     data_total: req.body.tabel_data[0].data_total,
+      //     //     data_unit: req.body.tabel_data[0].data_unit,
+      //     //     data_unit_price: req.body.tabel_data[0].data_unit_price,
+      //     //   }
+      //     // ]
+      //     total: this.total,
+      //     discount: this.discount,
+      //     discount_price: this.discount_price,
+      //     vat: this.vat,
+      //     sum_txt_total: this.sum_txt_total,
+      //     sum_total: this.sum_total,
+      //     note: this.note,
+      //     purchasing: this.purchasing,
+      //     condition: this.condition,
+      //     payment: this.payment,
+      //     bangkok: this.bangkok,
+      //     number_bangkok: this.number_bangkok,
+      //     name_bangkok: this.name_bangkok,
+      //   })
     },
   },
   watch: {

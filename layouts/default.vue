@@ -115,11 +115,11 @@ export default {
           title: 'ไฟล์งบทั่วไป',
           to: '/budgets',
         },
-        {
-          icon: 'mdi-apps',
-          title: 'ไฟล์งบทั่วไป',
-          to: '/GetBudgets',
-        },
+        // {
+        //   icon: 'mdi-apps',
+        //   title: 'ไฟล์งบทั่วไป',
+        //   to: '/GetBudgets',
+        // },
       ],
       miniVariant: false,
       right: true,
