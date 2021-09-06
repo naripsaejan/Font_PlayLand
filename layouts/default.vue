@@ -130,12 +130,14 @@ export default {
   methods: {
     async Logout() {
       // await this.$auth.logout()
-      try {
-        await this.$auth.logout()
-        this.$router.replace({ name: 'login' })
-      } catch (err) {
-        console.log(err)
-      }
+      this.$router.replace({ name: 'login' })
+
+      // try {
+      //   await this.$auth.logout()
+      //   this.$router.replace({ name: 'login' })
+      // } catch (err) {
+      //   console.log(err)
+      // }
     },
   },
   // mounted() {
