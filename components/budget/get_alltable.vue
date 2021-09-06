@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     getall() {
-      const url = `http://localhost:5000/api/v1/budget`
+      const url = `https://playlandbackend.herokuapp.com/api/v1/budget`
       axios.get(url).then((res) => {
         this.budget = res.data
         console.log('testget', this.budget)
@@ -68,7 +68,6 @@ export default {
     // handleSearchManga() {
     //   console.log('e')
     //   // const url = `https://api.jikan.moe/v3/search/manga?q=${this.query}&page=1`
-    //   const url = `http://localhost:5000/bugetones`
     //   axios.get(url).then((res) => {
     //     console.log(res.data)
     //     //   this.results = res.data

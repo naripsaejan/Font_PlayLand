@@ -258,7 +258,7 @@ export default {
 
   methods: {
     adddate() {
-      axios.post('http://localhost:5000/specifictwos/add', {
+      axios.post('https://playlandbackend.herokuapp.com/specifictwos/add', {
         id_file: this.id_file,
         date_file: this.date_file,
         presenter: this.presenter,

@@ -764,7 +764,7 @@ export default {
     },
     adddate() {
       this.check_radio()
-      axios.post('http://localhost:5000/specificones/add', {
+      axios.post('https://playlandbackend.herokuapp.com/specificones/add', {
         id_file: this.id_file,
         date_file: this.date_file,
         presenter: this.presenter,

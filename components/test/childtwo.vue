@@ -29,7 +29,7 @@ export default {
     },
     adddate() {
       console.log('id_fileeee', this.id_file)
-      axios.post('http://localhost:5000/posts/', {
+      axios.post('https://playlandbackend.herokuapp.com/posts/', {
         description: this.id_file,
         date: 'test',
       })
