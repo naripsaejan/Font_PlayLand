@@ -877,7 +877,7 @@ export default {
     },
     addGin() {
       this.check_radio()
-      axios.post('http://localhost:5000/supportones/add', {
+      axios.post('https://playlandbackend.herokuapp.com/supportones/add', {
         id_file: this.id_file,
         date_file: this.date_file,
         moneysupport: this.moneysupport,

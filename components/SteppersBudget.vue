@@ -104,7 +104,7 @@ export default {
     },
     async addGin() {
       await console.log('111', this.budgetones)
-      await axios.post('http://localhost:5000/api/v1/budget/', {
+      await axios.post('https://playlandbackend.herokuapp.com/api/v1/budget/', {
         budgetone: this.budgetones,
         budgettwo: this.budgettwos,
         budgetthree: this.budgetthrees,

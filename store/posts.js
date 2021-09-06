@@ -15,7 +15,7 @@
 // export const actions = {
 //   //   async getUsers() {
 //   //     //hit api to get users
-//   //     const users = await axios.post('http://localhost:5000/posts')
+//   //     const users = await axios.post('https://playlandbackend.herokuapp.com/posts')
 //   //     commit('addUsers', users)
 //   //     return users
 //   //   },

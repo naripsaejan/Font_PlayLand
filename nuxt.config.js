@@ -93,7 +93,7 @@ export default {
   },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'http://localhost:5000/',
+    baseURL: 'https://playlandbackend.herokuapp.com/',
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
