@@ -1,6 +1,15 @@
 <template lang="html">
   <div>
     <!-- {{ budget }} -->
+    <!-- 61329488d2bc015578cfa0ee -->
+    <div
+      class="d-grid justify-center"
+      v-for="budgets in budget"
+      :key="budgets._id"
+      v-if="budgets._id === this.query"
+    >
+      sdfsdfdsf
+    </div>
     <div
       class="d-grid justify-center"
       v-for="budgets in budget"
@@ -218,35 +227,35 @@
             <v-subheader>)</v-subheader>
           </v-col>
           <v-col>
-            <v-vol class="d-flex align-center">
+            <v-col class="d-flex align-center">
               <v-subheader>ราคารวม</v-subheader>
               <v-text-field :value="budgettwos.total" readonly></v-text-field>
-            </v-vol>
-            <v-vol class="d-flex align-center">
+            </v-col>
+            <v-col class="d-flex align-center">
               <v-subheader>ส่วนลด</v-subheader>
               <v-text-field
                 :value="budgettwos.discount"
                 readonly
               ></v-text-field>
-            </v-vol>
-            <v-vol class="d-flex align-center">
+            </v-col>
+            <v-col class="d-flex align-center">
               <v-subheader>ราคาหลังหักส่วนลด</v-subheader>
               <v-text-field
                 :value="budgettwos.discount_price"
                 readonly
               ></v-text-field>
-            </v-vol>
-            <v-vol class="d-flex align-center">
+            </v-col>
+            <v-col class="d-flex align-center">
               <v-subheader>VAT 7%</v-subheader>
               <v-text-field :value="budgettwos.vat" readonly></v-text-field>
-            </v-vol>
-            <v-vol class="d-flex align-center">
+            </v-col>
+            <v-col class="d-flex align-center">
               <v-subheader>รวมเป็นเงินทั้งสิ้น</v-subheader>
               <v-text-field
                 :value="budgettwos.sum_total"
                 readonly
               ></v-text-field>
-            </v-vol>
+            </v-col>
           </v-col>
         </div>
         <v-col class="d-flex align-center">
@@ -657,7 +666,7 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      query: '',
+      query: '61329488d2bc015578cfa0ee',
       budget: [],
       budgets: [],
       budgetone: [],
@@ -703,18 +712,20 @@ export default {
     }
   },
   methods: {
-    getall() {
+    getall(budget_id) {
+      this.query = budget_id
       console.log('e')
-      const url = `http://localhost:5000/api/v1/budget`
+      const url = `https://playlandbackend.herokuapp.com/api/v1/budget`
+      // const url = `https://playlandbackend.herokuapp.com/api/v1/budget/${this.query}`
       axios.get(url).then((res) => {
         this.budget = res.data
-        // console.log('testget', this.budget)
+        console.log('testget', this.budget._id)
       })
     },
     handleSearchManga() {
       console.log('e')
       // const url = `https://api.jikan.moe/v3/search/manga?q=${this.query}&page=1`
-      const url = `http://localhost:5000/bugetones`
+      const url = `https://playlandbackend.herokuapp.com/bugetones`
       axios.get(url).then((res) => {
         console.log(res.data)
         //   this.results = res.data

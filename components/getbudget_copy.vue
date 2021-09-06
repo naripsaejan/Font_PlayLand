@@ -179,16 +179,14 @@ export default {
   methods: {
     getall() {
       console.log('e')
-      const url = `http://localhost:5000/bugetones`
-      // const url = `http://localhost:5000/bugetones/612dd36d6894783228f80d2c`
+      const url = `https://playlandbackend.herokuapp.com/bugetones`
       axios.get(url).then((res) => {
         this.budget = res.data
       })
     },
     handleSearchManga() {
       console.log('e')
-      // const url = `https://api.jikan.moe/v3/search/manga?q=${this.query}&page=1`
-      const url = `http://localhost:5000/bugetones`
+      const url = `https://playlandbackend.herokuapp.com/bugetones`
       axios.get(url).then((res) => {
         console.log(res.data)
         //   this.results = res.data

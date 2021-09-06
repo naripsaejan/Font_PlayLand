@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  middleware: 'auth',
+  // middleware: 'auth',
   components: {
     SteppersSupport: () => import('~/components/SteppersSupport.vue'),
   },

@@ -19,13 +19,11 @@
 
 <script>
 export default {
-  middleware: 'auth',
+  // middleware: 'auth',
 
   components: {},
   data() {
-    return {
-      e1: 1,
-    }
+    return {}
   },
 }
 </script>

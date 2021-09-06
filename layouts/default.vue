@@ -112,14 +112,14 @@ export default {
       item_file: [
         {
           icon: 'mdi-apps',
-          title: 'เทสสง id ไฟล์งบทั่วไป',
-          to: '/GetBudgetstable',
-        },
-        {
-          icon: 'mdi-apps',
           title: 'ไฟล์งบทั่วไป',
-          to: '/GetBudgets',
+          to: '/budgets',
         },
+        // {
+        //   icon: 'mdi-apps',
+        //   title: 'ไฟล์งบทั่วไป',
+        //   to: '/GetBudgets',
+        // },
       ],
       miniVariant: false,
       right: true,
@@ -130,12 +130,14 @@ export default {
   methods: {
     async Logout() {
       // await this.$auth.logout()
-      try {
-        await this.$auth.logout()
-        this.$router.replace({ name: 'login' })
-      } catch (err) {
-        console.log(err)
-      }
+      this.$router.replace({ name: 'login' })
+
+      // try {
+      //   await this.$auth.logout()
+      //   this.$router.replace({ name: 'login' })
+      // } catch (err) {
+      //   console.log(err)
+      // }
     },
   },
   // mounted() {

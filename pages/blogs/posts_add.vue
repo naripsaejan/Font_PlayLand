@@ -61,7 +61,7 @@ export default {
   methods: {
     addGin() {
       console.log(this.title, this.description)
-      axios.post('http://localhost:5000/posts', {
+      axios.post('https://playlandbackend.herokuapp.com/posts', {
         title: this.title,
         description: this.description,
       })

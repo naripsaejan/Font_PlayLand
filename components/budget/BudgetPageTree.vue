@@ -780,11 +780,11 @@
           <!--  -->
         </div>
       </v-row>
-      <div>
+      <!-- <div>
         <v-btn type="submit" value="Submit" class="button-pr btn-send"
           >ส่งข้อมูล</v-btn
         >
-      </div>
+      </div> -->
     </v-form>
   </div>
 </template>
@@ -795,6 +795,7 @@ export default {
   props: ['call_fun'],
   data() {
     return {
+      budgetthree: ['e', 'f'],
       firstname_account: '',
       firstname_test: '',
       modal_purchase: false,
@@ -914,68 +915,67 @@ export default {
       // }
     },
     senddate() {
-      this.PostPageThree()
-      axios.post('http://localhost:5000/bugetthrees/add', {
-        purchase_radio: [
-          {
-            purchase_id: this.radio_purchase,
-            purchase_date: this.date_purchase,
-            purchase_time: this.time_purchase,
-            purchase_txt: this.purchase_txt,
-          },
-        ],
-        purchase_sing: this.purchase_sing,
-        purchase_date: this.date_purchase_end,
-        //
-        manage_radio: [
-          {
-            manage_id: this.radio_manage,
-            manage_date: this.date_manage,
-            manage_time: this.time_manage,
-            manage_txt: this.manage_txt,
-          },
-        ],
-        manage_sing: this.manage_sing,
-        manage_date: this.date_manage_end,
-        //
-        account_radio: [
-          {
-            radio_id: this.radio_account,
-            cashier: this.cashier,
-            numberaccount: this.numberaccount,
-            confirm_account: this.confirm_account,
-            cashier_date: this.date_account,
-            bangkok: this.bangkok,
-            number_bangkok: this.number_bangkok,
-            name_bangkok: this.name_bangkok,
-          },
-        ],
-        account_payment: this.account_payment,
-        total_money: this.total_money,
-        total_moneytext: this.total_moneytext,
-        note: this.note,
-        date_pay: this.date_account_day,
-        time_pay: this.time_account,
-        person_pay: this.person_pay,
-        person_receive: this.person_receive,
-        approve_day: this.date_account_day2,
-        approve_time: this.time_account2,
-        //
-        slip_radio: [
-          {
-            radio_id: this.radio_receive,
-            total: this.total,
-            txt_total: this.txt_total,
-          },
-        ],
-        slip_date: this.date_receive,
-        slipperson_pay: this.slipperson_pay,
-        slipperson_receive1: this.slipperson_receive1,
-        slipapprove_day: this.date_receive_end,
-        slipapprove_time: this.time_receive,
-        slipperson_receive2: this.slipperson_receive2,
-      })
-      // this.$refs.form.reset()
+      this.budgetthreesend = [
+        {
+          purchase_radio: [
+            {
+              purchase_id: this.radio_purchase,
+              purchase_date: this.date_purchase,
+              purchase_time: this.time_purchase,
+              purchase_txt: this.purchase_txt,
+            },
+          ],
+          purchase_sing: this.purchase_sing,
+          purchase_date: this.date_purchase_end,
+          manage_radio: [
+            {
+              manage_id: this.radio_manage,
+              manage_date: this.date_manage,
+              manage_time: this.time_manage,
+              manage_txt: this.manage_txt,
+            },
+          ],
+          manage_sing: this.manage_sing,
+          manage_date: this.date_manage_end,
+          account_radio: [
+            {
+              radio_id: this.radio_account,
+              cashier: this.cashier,
+              numberaccount: this.numberaccount,
+              confirm_account: this.confirm_account,
+              cashier_date: this.date_account,
+              bangkok: this.bangkok,
+              number_bangkok: this.number_bangkok,
+              name_bangkok: this.name_bangkok,
+            },
+          ],
+          account_payment: this.account_payment,
+          total_money: this.total_money,
+          total_moneytext: this.total_moneytext,
+          note: this.note,
+          date_pay: this.date_account_day,
+          time_pay: this.time_account,
+          person_pay: this.person_pay,
+          person_receive: this.person_receive,
+          approve_day: this.date_account_day2,
+          approve_time: this.time_account2,
+          slip_radio: [
+            {
+              radio_id: this.radio_receive,
+              total: this.total,
+              txt_total: this.txt_total,
+            },
+          ],
+          slip_date: this.date_receive,
+          slipperson_pay: this.slipperson_pay,
+          slipperson_receive1: this.slipperson_receive1,
+          slipapprove_day: this.date_receive_end,
+          slipapprove_time: this.time_receive,
+          slipperson_receive2: this.slipperson_receive2,
+        },
+      ]
+      this.$emit('createpangthree', this.budgetthreesend)
+      //   // this.$refs.form.reset()
     },
   },
   watch: {

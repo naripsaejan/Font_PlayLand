@@ -12,7 +12,7 @@
             outlined
             shaped
           >
-            <BudgetPageOne :call_fun="call_fun" />
+            <BudgetPageOne @createpangone="testpageone" :call_fun="call_fun" />
           </v-card>
           <v-btn color="primary" @click="e6 = 2"> หน้าถัดไป </v-btn>
         </v-stepper-content>
@@ -25,7 +25,7 @@
             shaped
             style="max-width: 1000px"
           >
-            <BudgetPageTwo :call_fun="call_fun" />
+            <BudgetPageTwo @createpangtwo="testpagetwo" :call_fun="call_fun" />
           </v-card>
           <v-btn color="primary" @click="e6 = 3">หน้าถัดไป</v-btn>
           <v-btn color="primary" @click="e6 = 1"> ย้อนกลับ </v-btn>
@@ -45,18 +45,32 @@
             shaped
             style="max-width: 1000px"
           >
-            <BudgetPageTree :call_fun="call_fun" />
+            <BudgetPageTree
+              @createpangthree="testpagethree"
+              :call_fun="call_fun"
+            />
           </v-card>
           <!-- <v-btn color="primary" @click="e6 = 4">หน้าถัดไป</v-btn> -->
-          <v-btn color="primary" @click="e6 = 2">ย้อนกลับ</v-btn>
+          <div class="d-flex justify-space-between">
+            <v-btn color="primary" @click="e6 = 2">ย้อนกลับ</v-btn>
+            <v-btn
+              @click="call_fun = !call_fun"
+              color="secondary"
+              depressed
+              elevation="6"
+              plain
+              >บันทึกข้อมูล</v-btn
+            >
+          </div>
         </v-stepper-content>
       </v-stepper>
     </v-app>
-    <v-btn @click="call_fun = !call_fun">call fun</v-btn>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   props: ['item'],
   components: {
@@ -69,9 +83,34 @@ export default {
       e6: 1,
       show: false,
       call_fun: null,
+      word: [],
+      budgetones: [],
     }
   },
   methods: {
+    async testpageone(budgetonesend) {
+      await console.log('testpageone', (this.budgetones = budgetonesend))
+      // let words = ['one', 'two', 'three', 'four'];
+      // await budgetonesend.forEach((word) => {
+      //   console.log('testpageone3', word)
+      // })
+    },
+    async testpagetwo(budgettwosend) {
+      await console.log('testpagetwo', (this.budgettwos = budgettwosend))
+    },
+    async testpagethree(budgetthreesend) {
+      await console.log('testpagethree', (this.budgetthrees = budgetthreesend))
+      this.addGin()
+    },
+    async addGin() {
+      await console.log('111', this.budgetones)
+      await axios.post('https://playlandbackend.herokuapp.com/api/v1/budget/', {
+        budgetone: this.budgetones,
+        budgettwo: this.budgettwos,
+        budgetthree: this.budgetthrees,
+      })
+      await (this.e6 = 4)
+    },
     // pagesubmit() {
     //   console.log('asdas')
     //   this.$emit('')
